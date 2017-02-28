@@ -15,3 +15,53 @@ Consola::Consola(int ano, string modelo, string estado, int serie, double precio
   this->serie = serie;
   this->precio = precio;
 }
+
+Consola::~Consola()
+{
+
+}
+
+void Consola::setAno(int ano)
+{
+  this->ano = ano;
+}
+
+void Consola::setModelo(string modelo)
+{
+  this->modelo = modelo;
+}
+
+void Consola::setEstado(string estado)
+{
+  this->estado = estado;
+}
+
+void Consola::setSerie(int serie)
+{
+  this->serie = serie;
+}
+
+void Consola::setPrecio(double precio)
+{
+  this->precio = precio;
+}
+
+int Consola::getAno()
+{
+  return ano;
+}
+
+string Consola::getModelo()
+{
+  return modelo;
+}
+
+string Consola::getEstado()
+{
+  return estado;
+}
+
+double Consola::getPrecio()
+{
+  return precio;
+}
