@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Vendedor.h"
 #include "Consola.h"
 #include "Videojuegos.h"
@@ -46,6 +47,9 @@ public:
   void setConsolas(vector<Consola*>);
   void addConsola(Consola*);
   void addVideojuego(Videojuegos*);
+  void setVideojuegos(vector<Videojuegos*>);
+  void setHora_finalizacion();
+  void setSubtotal(double);
 
 };
 
