@@ -20,7 +20,33 @@ private:
   double subtotal;
 
 public:
-  
+
+  //Constructores
+  Venta();
+  Venta(string,string,Vendedor*, double);
+  Venta(string, string, Vendedor*);
+  Venta(string, Vendedor*,double);
+  Venta(string,Vendedor*);
+
+  //Destructor
+  ~Venta();
+
+  //getter
+  string getNombre_cliente();
+  Consola* getConsola(int);
+  int getConsolaSize();
+  Videojuegos* getVideojuego(int);
+  int getVideojuegoSize();
+  string getHora_finalizacion();
+  Vendedor* getUsuario();
+  double getSubtotal();
+
+  //Setter
+  void setNombre_cliente(string);
+  void setConsolas(vector<Consola*>);
+  void addConsola(Consola*);
+  void addVideojuego(Videojuegos*);
+
 };
 
 #endif
