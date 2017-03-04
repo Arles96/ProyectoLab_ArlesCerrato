@@ -1,18 +1,17 @@
 #ifndef JUEGONINTENDO_H_
 #define JUEGONINTENDO_H_
+#pragma
+
+#include "Videojuegos.h"
 
 class JuegoNintendo : public Videojuegos
 {
-private:
-  string nintendo = "Nintendo";
+
 public:
 
   //Constructores
   JuegoNintendo();
-  JuegoNintendo(string,int,Consola*,int,string,string,int,double);
-
-  //getter
-  string getNintendo();
+  JuegoNintendo(string,int,string,int,string,string,int,double);
 
 };
 

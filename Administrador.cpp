@@ -24,9 +24,3 @@ string Administrador::getContrasena()
 {
   return contrasena;
 }
-
-
-int main ()
-{
-  return 0;
-}

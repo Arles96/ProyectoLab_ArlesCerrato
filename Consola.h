@@ -1,5 +1,6 @@
 #ifndef CONSOLA_H_
 #define CONSOLA_H_
+#pragma
 
 #include <string>
 

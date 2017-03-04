@@ -1,5 +1,4 @@
-#ifndef ADMINISTRADOR_H_
-#define ADMINISTRADOR_H_
+#pragma once
 
 #include "Usuario.h"
 #include <string>
@@ -27,5 +26,3 @@ public:
   string getContrasena();
 
 };
-
-#endif

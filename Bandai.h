@@ -1,22 +1,18 @@
 #ifndef BANDAI_H_
 #define BANDAI_H_
+#pragma
 
 #include "Videojuegos.h"
 
 class Bandai : public Videojuegos
 {
-private:
-  string bandai = "Bandai";
 
 public:
 
   //Constructores
   Bandai();
-  Bandai(string, int, Consola*, int, string,string,int,double);
+  Bandai(string, int, string, int, string,string,int,double);
 
-  //getter
-  string getBandai();
-  
 };
 
 #endif

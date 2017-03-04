@@ -5,7 +5,7 @@ Videojuegos::Videojuegos()
 
 }
 
-Videojuegos::Videojuegos(string nombre, int ano, Consola* consola, int numero_jugadores, string genero, string estado, int serie, double precio)
+Videojuegos::Videojuegos(string nombre, int ano, string consola, int numero_jugadores, string genero, string estado, int serie, double precio)
 {
   this->nombre = nombre;
   this->ano = ano;
@@ -19,7 +19,7 @@ Videojuegos::Videojuegos(string nombre, int ano, Consola* consola, int numero_ju
 
 Videojuegos::~Videojuegos()
 {
-  delete consola;
+  
 }
 
 string Videojuegos::getNombre()
@@ -32,7 +32,7 @@ int Videojuegos::getAno()
   return ano;
 }
 
-Consola* Videojuegos::getConsola()
+string Videojuegos::getConsola()
 {
   return consola;
 }
@@ -72,7 +72,7 @@ void Videojuegos::setAno(int ano)
   this->ano = ano;
 }
 
-void Videojuegos::setConsola(Consola* consola)
+void Videojuegos::setConsola(string consola)
 {
   this->consola = consola;
 }

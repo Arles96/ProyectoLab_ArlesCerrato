@@ -1,8 +1,8 @@
 #ifndef VIDEOJUEGOS_H_
 #define VIDEOJUEGOS_H_
+#pragma
 
 #include <string>
-#include "Consola.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ class Videojuegos
 protected:
   string nombre;
   int ano;
-  Consola* consola;
+  string consola;
   int numero_jugadores;
   string genero;
   string estado;
@@ -21,7 +21,7 @@ public:
 
   //Constructores
   Videojuegos();
-  Videojuegos(string, int, Consola*, int, string,string,int,double);
+  Videojuegos(string, int, string, int, string,string,int,double);
 
   //Destructores
   ~Videojuegos();
@@ -29,7 +29,7 @@ public:
   //getter
   string getNombre();
   int getAno();
-  Consola* getConsola();
+  string getConsola();
   int getNumero_jugadores();
   string getGenero();
   string getEstado();
@@ -39,7 +39,7 @@ public:
   //Setter
   void setNombre(string);
   void setAno(int);
-  void setConsola(Consola*);
+  void setConsola(string);
   void setNumero_jugadores(int);
   void setGenero(string);
   void setEstado(string);

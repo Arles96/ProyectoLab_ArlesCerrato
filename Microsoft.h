@@ -1,5 +1,6 @@
 #ifndef MICROSOFT_H_
 #define MICROSOFT_H_
+#pragma
 
 #include <string>
 #include "Consola.h"
@@ -8,22 +9,14 @@ using namespace std;
 
 class Microsoft : public Consola
 {
-private:
-  string tipo;
 public:
 
   //Constructores
   Microsoft();
-  Microsoft(int, string, string, int, double, string);
+  Microsoft(int, string, string, int, double);
 
   //Destructor
   ~Microsoft();
-
-  //Setter
-  void setTipo(string);
-
-  //getter
-  string getTipo();
 };
 
 #endif

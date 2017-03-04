@@ -1,5 +1,6 @@
 #ifndef VENTA_H_
 #define VENTA_H_
+#pragma
 
 #include <vector>
 #include <string>

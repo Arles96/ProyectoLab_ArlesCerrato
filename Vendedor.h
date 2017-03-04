@@ -1,5 +1,6 @@
 #ifndef VENDEDOR_H_
 #define VENDEDOR_H_
+#pragma
 
 #include <string>
 #include <ctime>
