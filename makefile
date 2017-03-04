@@ -1,5 +1,5 @@
-Empresa:	Consola.o Usuario.o Videojuegos.o Administrador.o Bandai.o ElectronicArts.o JuegoMicrosoft.o JuegoNintendo.o JuegoSony.o Konami.o Microsoft.o Nintendo.o Sega.o Sony.o SquareEnix.o Ubisoft.o Vendedor.o Venta.o main.o
-	g++ Consola.o Usuario.o Videojuegos.o Administrador.o Bandai.o ElectronicArts.o JuegoMicrosoft.o JuegoNintendo.o JuegoSony.o Konami.o Microsoft.o Nintendo.o Sega.o Sony.o SquareEnix.o Ubisoft.o Vendedor.o Venta.o main.o -o Empresa
+Empresa:	Consola.o Usuario.o Videojuegos.o Administrador.o Bandai.o ElectronicArts.o JuegoMicrosoft.o JuegoNintendo.o JuegoSony.o Konami.o Microsoft.o Nintendo.o Sega.o Sony.o SquareEnix.o Ubisoft.o Vendedor.o Venta.o main.o Inventario.o
+	g++ Consola.o Usuario.o Videojuegos.o Administrador.o Bandai.o ElectronicArts.o JuegoMicrosoft.o JuegoNintendo.o JuegoSony.o Konami.o Microsoft.o Nintendo.o Sega.o Sony.o SquareEnix.o Ubisoft.o Vendedor.o Venta.o main.o Inventario.o -o Empresa
 
 main.o:	main.cpp Administrador.h Bandai.h Consola.h ElectronicArts.h JuegoMicrosoft.h JuegoNintendo.h JuegoSony.h Konami.h Microsoft.h Nintendo.h Sega.h Sony.h SquareEnix.h Ubisoft.h Usuario.h Vendedor.h Venta.h Videojuegos.h
 	g++ -c main.cpp
@@ -10,7 +10,7 @@ Consola.o:	Consola.cpp Consola.h
 Usuario.o:	Usuario.cpp Usuario.h
 	g++ -c Usuario.cpp
 
-Videojuegos.o:	Videojuegos.cpp Videojuegos.h 
+Videojuegos.o:	Videojuegos.cpp Videojuegos.h
 	g++ -c Videojuegos.cpp
 
 Administrador.o:	Administrador.cpp Administrador.h Usuario.h
@@ -57,6 +57,9 @@ Vendedor.o: Vendedor.cpp Vendedor.h Usuario.h
 
 Venta.o: Venta.cpp Venta.h Vendedor.h Consola.h Videojuegos.h
 	g++ -c Venta.cpp
+
+Inventario.o: Consola.h Videojuegos.h Inventario.h Inventario.cpp
+	g++ -c Inventario.cpp
 
 Clean:
 	rm *.o Empresa
