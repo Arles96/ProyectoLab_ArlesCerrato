@@ -61,6 +61,10 @@ string Consola::getEstado()
   return estado;
 }
 
+int Consola::getSerie(){
+  return serie;
+}
+
 double Consola::getPrecio()
 {
   return precio;
