@@ -183,7 +183,17 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el año del juego: ";
               cin>>ano;
-
+              consola = consolaVideojuego();
+              cout << "Ingrese el numero de jugadores en el juego: ";
+              cin>>numero_jugadores;
+              cin.ignore(256,'\n');
+              cout << "Ingrese el genero del juego: ";
+              getline(cin,genero;)
+              cin.ignore(256,'\n');
+              cout << "Ingrese el estado del juego: ";
+              getline(cin,estado);
+              serie = validacionSerie();
+              
             }
           }
         }
