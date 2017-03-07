@@ -88,366 +88,490 @@ int main()
       cout << endl;//salto de linea
       if (autenticacion==true){//si la autenticacion fue correcta
         string menu_administrador;
-        cout << "MENU PRINCIPAL DE ADMINISTRADOR" << endl << endl;
-        cout << "1.- Agregar" << endl;
-        cout << "2.- Listar" << endl;
-        cout << "3.- Modificar" << endl;
-        cout << "4.- Eliminar" << endl;
-        cout << "Presiona una letra u otro numero para cancelar" << endl << endl;
-        cout << "Ingrese una opcion: " << endl;
-        cin>>menu_administrador;
-        cout << endl;//salto de linea
-        if (menu_administrador=="1"){//Agregar
-          string opcion_agregar;
-          cout << "MENU DE AGREGAR" << endl << endl;
-          cout << "1.- Consolas" << endl;
-          cout << "2.- Videojuegos" << endl;
-          cout << "presione una letra u otro numero para cancelar" << endl << endl;
-          cout << "Ingrese una opcion: ";
-          cin >> opcion_agregar;
-          cout << endl; //salto de linea
-          if (opcion_agregar=="1"){//Menu de consolas
-            string opcion_consola;
-            cout << "MENU DE CONSOLAS " << endl << endl;
-            cout << "1.- Microsoft" << endl;
-            cout << "2.- Sony" << endl;
-            cout << "3.- Nintendo" << endl;
-            cout << "Presione una letra u otro numero para cancelar" << endl << endl;
+        string respuesta_administrador = "s";
+        while (respuesta_administrador=="s"){//inicio de respuesta de administrador
+          cout << "MENU PRINCIPAL DE ADMINISTRADOR" << endl << endl;
+          cout << "1.- Agregar" << endl;
+          cout << "2.- Listar" << endl;
+          cout << "3.- Modificar" << endl;
+          cout << "4.- Eliminar" << endl;
+          cout << "Presiona una letra u otro numero para cancelar" << endl << endl;
+          cout << "Ingrese una opcion: " << endl;
+          cin>>menu_administrador;
+          cout << endl;//salto de linea
+          if (menu_administrador=="1"){//Agregar
+            string opcion_agregar;
+            cout << "MENU DE AGREGAR" << endl << endl;
+            cout << "1.- Consolas" << endl;
+            cout << "2.- Videojuegos" << endl;
+            cout << "presione una letra u otro numero para cancelar" << endl << endl;
             cout << "Ingrese una opcion: ";
-            cin >> opcion_consola;
-            cout << endl; // salto de linea
-            cin.ignore(256,'\n');
-            int ano, serie, cantidad;
-            string modelo, estado;
-            double precio;
-            if(opcion_consola=="1"){//Opcion de Microsoft
-              cout << "AGREGANDO CONSOLA DE MICROSOFT" << endl << endl;
-              cout << "Ingrese la cantidad de consolas Microsoft: ";
-              cin>>cantidad;
-              while (cantidad<1){
-                cout << "Error en la cantidad" << endl;
+            cin >> opcion_agregar;
+            cout << endl; //salto de linea
+            if (opcion_agregar=="1"){//Menu de consolas
+              string opcion_consola;
+              cout << "MENU DE CONSOLAS " << endl << endl;
+              cout << "1.- Microsoft" << endl;
+              cout << "2.- Sony" << endl;
+              cout << "3.- Nintendo" << endl;
+              cout << "Presione una letra u otro numero para cancelar" << endl << endl;
+              cout << "Ingrese una opcion: ";
+              cin >> opcion_consola;
+              cout << endl; // salto de linea
+              cin.ignore(256,'\n');
+              int ano, serie, cantidad;
+              string modelo, estado;
+              double precio;
+              if(opcion_consola=="1"){//Opcion de Microsoft
+                cout << "AGREGANDO CONSOLA DE MICROSOFT" << endl << endl;
                 cout << "Ingrese la cantidad de consolas Microsoft: ";
                 cin>>cantidad;
-              }
-              contador_microsoft += cantidad;
-              cout << "Ingrese el año de la consola: ";
-              cin>>ano;
-              modelo = modeloMicrosoft();
-              cin.ignore(256,'\n');
-              cout << "Ingrese el estado de la consola: ";
-              getline(cin,estado);
-              cout << "Ingrese el precio de la consola: ";
-              cin>>precio;
-              for (int i=0; i<cantidad; i++){
-                serie = validacionSerie(inventario);
-                inventario->addConsola(new Microsoft(ano,modelo,estado,serie,precio));
-              }
-              cout << "Se ha agregado consolas microsoft al inventario" << endl;
-            }//fin opcion de microsoft
-            else if (opcion_consola=="2"){//Opcion de Sony
-              cout << "AGREGANDO CONSOLA DE SONY" << endl << endl;
-              cout << "Ingrese la cantidad de consola Sony: ";
-              cin>>cantidad;
-              while (cantidad<1){
-                cout << "Error en la cantidad" << endl;
-                cout << "Ingrese la cantidad de consolas de Sony: ";
+                while (cantidad<1){
+                  cout << "Error en la cantidad" << endl;
+                  cout << "Ingrese la cantidad de consolas Microsoft: ";
+                  cin>>cantidad;
+                }
+                contador_microsoft += cantidad;
+                cout << "Ingrese el año de la consola: ";
+                cin>>ano;
+                modelo = modeloMicrosoft();
+                cin.ignore(256,'\n');
+                cout << "Ingrese el estado de la consola: ";
+                getline(cin,estado);
+                cout << "Ingrese el precio de la consola: ";
+                cin>>precio;
+                for (int i=0; i<cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addConsola(new Microsoft(ano,modelo,estado,serie,precio));
+                }
+                cout << "Se ha agregado consolas microsoft al inventario" << endl;
+              }//fin opcion de microsoft
+              else if (opcion_consola=="2"){//Opcion de Sony
+                cout << "AGREGANDO CONSOLA DE SONY" << endl << endl;
+                cout << "Ingrese la cantidad de consola Sony: ";
                 cin>>cantidad;
-              }
-              contador_sony += cantidad;
-              cout << "Ingrese el año de la consola: ";
-              cin>>ano;
-              modelo = modeloSony();
-              cin.ignore(256,'\n');
-              cout << "Ingrese el estado de la consola: ";
-              getline(cin,estado);
-              cout << "Ingrese el precio de la consola: ";
-              cin>>precio;
-              for (int i=0; i<cantidad; i++){
-                serie = validacionSerie(inventario);
-                inventario->addConsola(new Sony(ano,modelo,estado,serie,precio));
-              }
-              cout << "Se ha agregado consolas de sony al inventario" << endl;
-            }//fin de la opcion de sony
-            else if (opcion_consola=="3"){//Opcion de Nintendo
-              cout << "AGREGANDO CONSOLAS DE NINTENDO" << endl << endl;
-              cout << "Ingrese la cantidad de consolas nintendo: ";
-              cin>>cantidad;
-              while (cantidad<1){
-                cout << "Error en la cantidad" << endl;
+                while (cantidad<1){
+                  cout << "Error en la cantidad" << endl;
+                  cout << "Ingrese la cantidad de consolas de Sony: ";
+                  cin>>cantidad;
+                }
+                contador_sony += cantidad;
+                cout << "Ingrese el año de la consola: ";
+                cin>>ano;
+                modelo = modeloSony();
+                cin.ignore(256,'\n');
+                cout << "Ingrese el estado de la consola: ";
+                getline(cin,estado);
+                cout << "Ingrese el precio de la consola: ";
+                cin>>precio;
+                for (int i=0; i<cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addConsola(new Sony(ano,modelo,estado,serie,precio));
+                }
+                cout << "Se ha agregado consolas de sony al inventario" << endl;
+              }//fin de la opcion de sony
+              else if (opcion_consola=="3"){//Opcion de Nintendo
+                cout << "AGREGANDO CONSOLAS DE NINTENDO" << endl << endl;
                 cout << "Ingrese la cantidad de consolas nintendo: ";
-                cin >> cantidad;
+                cin>>cantidad;
+                while (cantidad<1){
+                  cout << "Error en la cantidad" << endl;
+                  cout << "Ingrese la cantidad de consolas nintendo: ";
+                  cin >> cantidad;
+                }
+                contador_nintendo += cantidad;
+                cout << "Ingrese el año de la consola: ";
+                cin>>ano;
+                modelo = modeloSony();
+                cin.ignore(256,'\n');
+                cout << "Ingrese el estado de la consola: ";
+                getline(cin,estado);
+                cout << "Ingrese el precio de la consola: ";
+                cin>>precio;
+                for (int i=0; i<cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addConsola(new Nintendo(ano,modelo,estado,serie,precio));
+                }
+                cout << "Se ha agregado consolas nintendo al inventario" << endl;
+              }// fin de la opcion de nintendo
+              else {//Parte de cancelado de opciones de consolas
+                cout << "Se ha cancelado" << endl;
               }
-              contador_nintendo += cantidad;
+            }//fin de la opcion de la opcion de agregar consolas
+            else if (opcion_agregar=="2"){//Opcion de videojuegos
+              string opcion_videojuego;
+              cout << "MENU DE VIDEOJUEGOS" << endl << endl;
+              cout << "1.- Juegos Microsoft" << endl;
+              cout << "2.- juegos Sony" << endl;
+              cout << "3.- Juegos Nintendo" << endl;
+              cout << "4.- Bandai" << endl;
+              cout << "5.- Konami" << endl;
+              cout << "6.- Square Enix" << endl;
+              cout << "7.- Electronic Arts" << endl;
+              cout << "8.- Sega" << endl;
+              cout << "9.- Ubisoft" << endl;
+              cout << "Presione una letra u otro numero para cancelar" << endl << endl;
+              cout << "Ingrese una opcion: ";
+              cin>>opcion_videojuego;
+              cout << endl;//salto de linea
+              string nombre, consola, genero, estado;
+              int ano, numero_jugadores, serie;
+              double precio;
+              if (opcion_videojuego=="1"){//opcion de videojuego de microsoft
+                cout << "AGREGANDO VIDEOJUEGO DE MICROSOFT" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el estado del juego: ";
+                getline(cin,estado);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de microsoft
+              else if (opcion_videojuego=="2"){//opcion de videojuego de sony
+                cout << "AGREGANDO VIDEOJUEGOS DE SONY" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de sony
+              else if (opcion_videojuego=="3"){//opcion de videojuego de nintendo
+                cout << "AGREGANDO VIDEOJUEGOS DE NINTENDO" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de nintendo
+              else if (opcion_videojuego=="4"){//opcion de videojuego de bandai
+                cout << "AGREGANDO VIDEOJUEGOS DE BANDAI" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojueg de bandai
+              else if (opcion_videojuego=="5"){//opcion de videojuegos de konami
+                cout << "AGREGANDO VIDEOJUEGOS DE KONAMI" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de konami
+              else if (opcion_videojuego=="6"){//opcion de videojuego de square enix
+                cout << "AGREGANDO VIDEOJUEGOS DE SQUARE ENIX" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de square enix
+              else if (opcion_videojuego=="7"){//opcion de videojuego de electronic arts
+                cout << "AGREGANDO VIDEOJUEGOS DE ELECTRONIC ARTS" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de electronic arts
+              else if (opcion_videojuego=="8"){//opcion de videojuego de sega
+                cout << "AGREGANDO VIDEOJUEGOS DE SEGA" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de sega
+              else if (opcion_videojuego=="9"){//opcion de videojuego de Ubisoft
+                cout << "AGREGANDO VIDEOJUEGOS DE UBISOFT" << endl << endl;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el nombre del juego: ";
+                cin.ignore(256,'\n');
+                cout << "Ingrese en nombre del juego: ";
+                getline(cin,nombre);
+                cin.ignore(256,'\n');
+                cout << "Ingrese el año del juego: ";
+                cin>>ano;
+                consola = consolaVideojuego();
+                cout << "Ingrese el numero de jugadores en el juego: ";
+                cin>>numero_jugadores;
+                cin.ignore(256,'\n');
+                cout << "Ingrese el genero del juego: ";
+                getline(cin,genero);
+                serie = validacionSerie(inventario);
+                cout << "Ingrese el precio del videojuego: ";
+                cin>>precio;
+                inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }//fin de la opcion de videojuego de ubisoft
+              else{
+                cout << "Se ha cancelado" << endl;
+              }
+            }//fin de agregar videojuegos
+            else {
+              cout << "Se ha cancelado" << endl;
+            }
+          }//fin de agregar
+          else if (menu_administrador=="2"){//opcion de Listar
+            string opcion_listar;
+            cout << "MENU DE LISTAR" << endl << endl;
+            cout << "1.- Consolas" << endl;
+            cout << "2.- videojuegos" << endl;
+            cout << "3.- Presione una letra u otro numero para cancelar" << endl << endl;
+            cout << "Ingrese una opcion: ";
+            cin>> opcion_listar;
+            cout << endl;//salto de linea
+            if (opcion_listar=="1"){//opcion de listar Consolas
+              cout << "LISTANDO CONSOLAS " << endl << endl;
+              cout << "No.\t" << "Serie\t" << "Modelo\t" << "Estado\t" << "Año\t" << "Precio\t" << endl << endl;
+              for (int i=0; i < inventario->sizeConsola(); i++){
+                cout << i << "\t" << inventario->getConsola(i)->getSerie() << "\t" <<
+                  inventario->getConsola(i)->getModelo() << "\t" << inventario->getConsola(i)->getEstado() << "\t" <<
+                  inventario->getConsola(i)->getAno() << "\t" << inventario->getConsola(i)->getPrecio() << endl;
+              }
+              cout << endl;//salto de linea
+            }//fin de la opcion de listar consola
+            else if (opcion_listar=="2"){//opcion de listar videojuegos
+              cout << "LISTANDO VIDEOJUEGOS" << endl << endl;
+              for (int i=0; i < inventario->sizeVideojuego(); i++){
+                cout << i << "\t" << inventario->getVideojuego(i)->getSerie() << "\t" <<
+                  inventario->getVideojuego(i)->getNombre() << "\t" << inventario->getVideojuego(i)->getEstado()
+                  << "\t" << inventario->getVideojuego(i)->getGenero() << "\t" <<
+                  inventario->getVideojuego(i)->getPrecio() << endl;
+              }
+              cout << endl;//salto de linea
+            }//fin de la opcion de listar consola
+            else {
+              cout << "se ha cancelado" << endl;
+            }
+          }//fin de la opcion de Listar
+          else if (menu_administrador=="3"){//opcion Modificar
+            string opcion_modificar;
+            cout << "MENU DE MODIFICAR " << endl << endl;
+            cout << "1.- Consolas " << endl;
+            cout << "2.- Videojuegos" << endl;
+            cout << "Presiona una letra u otro numero para cancelar" << endl << endl;
+            cout << "Ingrese una opcion: ";
+            cin>>opcion_modificar;
+            cout << endl; //salto de linea
+            int posicion;
+            if (opcion_modificar=="1"){//Opcion modificar de consola
+              cout << "MODIFICANDO CONSOLA" << endl << endl ;
+              cout << "Ingrese la posiciona modificar: ";
+              cin>>posicion;
+              while (posicion<0 || posicion>inventario->sizeConsola()-1){
+                cout << "Error en la posicion" << endl ;
+                cout << "Ingrese una posicion a modificar: ";
+                cin>>posicion;
+              }
+              cout << endl;//salto de linea
+              int ano, serie;
+              string modelo, estado;
+              double precio;
               cout << "Ingrese el año de la consola: ";
               cin>>ano;
-              modelo = modeloSony();
               cin.ignore(256,'\n');
               cout << "Ingrese el estado de la consola: ";
               getline(cin,estado);
+              modelo = consolaVideojuego();//TODO: diferenciar que tipo de consola es
               cout << "Ingrese el precio de la consola: ";
               cin>>precio;
-              for (int i=0; i<cantidad; i++){
-                serie = validacionSerie(inventario);
-                inventario->addConsola(new Nintendo(ano,modelo,estado,serie,precio));
+              serie = validacionSerie(inventario);
+              inventario->getConsola(posicion)->setAno(ano);
+              inventario->getConsola(posicion)->setEstado(estado);
+              inventario->getConsola(posicion)->setModelo(modelo);
+              inventario->getConsola(posicion)->setPrecio(precio);
+              inventario->getConsola(posicion)->setSerie(serie);
+              cout << "Se ha modificado la consola" << endl;
+            }//fin de la opcion modificar de la consola
+            else if (opcion_modificar=="2"){//opcion de modificar un videojuego
+              cout << "MODIFICANDO VIDEOJUEGO" << endl << endl;
+              cout << "Ingrese la posicion a modificar: ";
+              cin>>posicion;
+              while (posicion<0 || posicion>inventario->sizeVideojuego()-1){
+                cout << "Error en la posicion" << endl;
+                cout << "Ingrese una posicion: ";
+                cin>>posicion;
               }
-              cout << "Se ha agregado consolas nintendo al inventario" << endl;
-            }// fin de la opcion de nintendo
-            else {//Parte de cancelado de opciones de consolas
-              cout << "Se ha cancelado" << endl;
-            }
-          }//fin de la opcion de la opcion de agregar consolas
-          else if (opcion_agregar=="2"){//Opcion de videojuegos
-            string opcion_videojuego;
-            cout << "MENU DE VIDEOJUEGOS" << endl << endl;
-            cout << "1.- Juegos Microsoft" << endl;
-            cout << "2.- juegos Sony" << endl;
-            cout << "3.- Juegos Nintendo" << endl;
-            cout << "4.- Bandai" << endl;
-            cout << "5.- Konami" << endl;
-            cout << "6.- Square Enix" << endl;
-            cout << "7.- Electronic Arts" << endl;
-            cout << "8.- Sega" << endl;
-            cout << "9.- Ubisoft" << endl;
-            cout << "Presione una letra u otro numero para cancelar" << endl << endl;
-            cout << "Ingrese una opcion: ";
-            cin>>opcion_videojuego;
-            cout << endl;//salto de linea
-            string nombre, consola, genero, estado;
-            int ano, numero_jugadores, serie;
-            double precio;
-            if (opcion_videojuego=="1"){//opcion de videojuego de microsoft
-              cout << "AGREGANDO VIDEOJUEGO DE MICROSOFT" << endl << endl;
+              cout << endl;//saldo de linea
+              string nombre, consola, estado, genero;
+              int ano, serie, numero_jugadores;
+              double precio;
+              cout << "Ingrese el año del juego: ";
+              cin>>ano;
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
               cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el estado del juego: ";
+              cout << "Ingrese el estado del videojuego: ";
               getline(cin,estado);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de microsoft
-            else if (opcion_videojuego=="2"){//opcion de videojuego de sony
-              cout << "AGREGANDO VIDEOJUEGOS DE SONY" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
               cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de sony
-            else if (opcion_videojuego=="3"){//opcion de videojuego de nintendo
-              cout << "AGREGANDO VIDEOJUEGOS DE NINTENDO" << endl << endl;
               cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
               consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
+              cout << "Ingrese el numero de jugadores del juego: ";
               cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
               serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de nintendo
-            else if (opcion_videojuego=="4"){//opcion de videojuego de bandai
-              cout << "AGREGANDO VIDEOJUEGOS DE BANDAI" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojueg de bandai
-            else if (opcion_videojuego=="5"){//opcion de videojuegos de konami
-              cout << "AGREGANDO VIDEOJUEGOS DE KONAMI" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de konami
-            else if (opcion_videojuego=="6"){//opcion de videojuego de square enix
-              cout << "AGREGANDO VIDEOJUEGOS DE SQUARE ENIX" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de square enix
-            else if (opcion_videojuego=="7"){//opcion de videojuego de electronic arts
-              cout << "AGREGANDO VIDEOJUEGOS DE ELECTRONIC ARTS" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de electronic arts
-            else if (opcion_videojuego=="8"){//opcion de videojuego de sega
-              cout << "AGREGANDO VIDEOJUEGOS DE SEGA" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de sega
-            else if (opcion_videojuego=="9"){//opcion de videojuego de Ubisoft
-              cout << "AGREGANDO VIDEOJUEGOS DE UBISOFT" << endl << endl;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el nombre del juego: ";
-              cin.ignore(256,'\n');
-              cout << "Ingrese en nombre del juego: ";
-              getline(cin,nombre);
-              cin.ignore(256,'\n');
-              cout << "Ingrese el año del juego: ";
-              cin>>ano;
-              consola = consolaVideojuego();
-              cout << "Ingrese el numero de jugadores en el juego: ";
-              cin>>numero_jugadores;
-              cin.ignore(256,'\n');
-              cout << "Ingrese el genero del juego: ";
-              getline(cin,genero);
-              serie = validacionSerie(inventario);
-              cout << "Ingrese el precio del videojuego: ";
-              cin>>precio;
-              inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-            }//fin de la opcion de videojuego de ubisoft
-            else{
+              inventario->getVideojuego(posicion)->setAno(ano);
+              inventario->getVideojuego(posicion)->setNombre(nombre);
+              inventario->getVideojuego(posicion)->setEstado(estado);
+              inventario->getVideojuego(posicion)->setGenero(genero);
+              inventario->getVideojuego(posicion)->setNumero_jugadores(numero_jugadores);
+              inventario->getVideojuego(posicion)->setSerie(serie);
+              cout << "Se ha modificado el videojuego" << endl;
+            }//fin de la opcion de modificar videojuego
+            else {
               cout << "Se ha cancelado" << endl;
             }
-          }//fin de agregar videojuegos
+          }//fin de la opcion de Modificar
+          else if (menu_administrador=="4"){//Opcion de eliminar
+            string opcion_eliminar;
+            cout << "MENU DE ELIMINAR " << endl << endl;
+            cout << "1.- Consola" << endl;
+            cout << "2.- videojuego" << endl;
+            cout << "Presione una letra u otro numero para salir" << endl << endl;
+            cout << "Ingrese una opcion: ";
+            cin>>opcion_eliminar;
+            cout << endl;//salto de linea
+            int posicion;
+            if (opcion_eliminar=="1"){//Opcion de eliminar de Consola
+              cout << "ELIMINANDO CONSOLA" << endl << endl;//TODO: diferenciar que tipo de consola es?
+              cout << "Ingrese una posicion para eliminar consola: ";
+              cin>>posicion;
+              cout << endl;//salto de linea
+              inventario->removeConsola(posicion);
+              cout << "Se ha eliminado una consola" << endl;
+            }//fin de la opcion de eliminar consola
+            else if (opcion_eliminar=="2"){//opcion de eliminar de videojuego
+              cout << "ELIMINANDO VIDEOJUEGO" << endl << endl;
+              cout << "Ingrese una posicion para eliminar videojuego: ";
+              cin>>posicion;
+              while (posicion<0 || posicion>inventario->sizeVideojuego()-1){
+                cout << "Error en la posicion" << endl;
+                cout << "Ingrese una posicion: ";
+                cin>>posicion;
+              }
+              cout << endl;// salto de linea
+              inventario->removeVideojuego(posicion);
+              cout << "Se ha eliminado un videojuego";
+            }//fin de la opcion de eliminar videojuego
+          }// fin de la opcion de eliminar
           else {
-            cout << "Se ha cancelado" << endl;
+            cout << "Ha cancelado " << endl;
+            break;
           }
-        }//fin de agregar
-        else if (menu_administrador=="2"){//opcion de Listar
-          string opcion_listar;
-          cout << "MENU DE LISTAR" << endl << endl;
-          cout << "1.- Consolas" << endl;
-          cout << "2.- videojuegos" << endl;
-          cout << "3.- Presione una letra u otro numero para cancelar" << endl << endl;
-          cout << "Ingrese una opcion: ";
-          cin>> opcion_listar;
           cout << endl;//salto de linea
-          if (opcion_listar=="1"){//opcion de listar Consolas
-            cout << "LISTANDO CONSOLAS " << endl << endl;
-            cout << "No.\t" << "Serie\t" << "Modelo\t" << "Estado\t" << "Año\t" << "Precio\t" << endl << endl;
-            for (int i=0; i < inventario->sizeConsola(); i++){
-              cout << i << "\t" << inventario->getConsola(i)->getSerie() << "\t" <<
-                inventario->getConsola(i)->getModelo() << "\t" << inventario->getConsola(i)->getEstado() << "\t" <<
-                inventario->getConsola(i)->getAno() << "\t" << inventario->getConsola(i)->getPrecio() << endl;
-            }
-            cout << endl;//salto de linea
-          }//fin de la opcion de listar consola
-          else if (opcion_listar=="2"){//opcion de listar videojuegos
-            cout << "LISTANDO VIDEOJUEGOS" << endl << endl;
-            for (int i=0; i < inventario->sizeVideojuego(); i++){
-              cout << i << "\t" << inventario->getVideojuego(i)->getSerie() << "\t" <<
-                inventario->getVideojuego(i)->getNombre() << "\t" << inventario->getVideojuego(i)->getEstado()
-                << "\t" << inventario->getVideojuego(i)->getGenero() << "\t" <<
-                inventario->getVideojuego(i)->getPrecio() << endl;
-            }
-            cout << endl;//salto de linea
-          }//fin de la opcion de listar consola
-          else {
-            cout << "se ha cancelado" << endl;
-          }
-        }//fin de la opcion de Listar
+          cout << "Desea continuar en la cuenta administrador: ";
+          cin>>respuesta_administrador;
+          cout << endl;//salto de linea
+        }//fin de la respuesta del administrador
       }//fin de la autenticacion correcta
     }//fin de cuenta principal
     cout <<"Desea continuar: ";
     cin>>respuesta;
+    cout << endl; // salto de linea
   }
   //ELiminando espacio en memoria
   delete inventario;
