@@ -12,6 +12,9 @@ class Inventario
 private:
   vector<Consola*> consolas;
   vector<Videojuegos*> videojuegos;
+  int contador_microsoft;
+  int contador_sony;
+  int contador_nintendo;
 
 public:
 
@@ -24,10 +27,16 @@ public:
   //getter
   vector<Consola*> getConsolas();
   vector<Videojuegos*> getVideojuegos();
+  int getContador_microsoft();
+  int getContador_sony();
+  int getContador_nintendo();
 
   //setter
   void setConsolas(vector<Consola*>);
   void setVideojuegos(vector<Videojuegos*>);
+  void setContador_microsoft(int);
+  void setContador_sony(int);
+  void setContador_nintendo(int);
 
   //agregar Consola y Videojuegos
   void addConsola(Consola*);

@@ -2,7 +2,9 @@
 
 Inventario::Inventario()
 {
-
+  contador_microsoft = 0; 
+  contador_sony = 0;
+  contador_nintendo = 0;
 }
 
 Inventario::~Inventario()
@@ -28,6 +30,21 @@ vector<Consola*> Inventario::getConsolas()
 vector<Videojuegos*> Inventario::getVideojuegos()
 {
   return videojuegos;
+}
+
+int Inventario::getContador_microsoft()
+{
+  return contador_microsoft;
+}
+
+int Inventario::getContador_sony()
+{
+  return contador_sony;
+}
+
+int Inventario::getContador_nintendo()
+{
+  return contador_nintendo;
 }
 
 void Inventario::setConsolas(vector<Consola*> consolas)
