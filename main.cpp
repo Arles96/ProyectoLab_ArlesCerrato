@@ -45,8 +45,8 @@ int ingresoSerie();
 int validacionSerie(Inventario*);
 
 //Funciones para imprimir en un archivo de texto
-void imprimirVenta (Venta*, int);
-void imprimirVendedor(vector<Venta*>);
+void imprimirVenta (Venta*);
+void imprimirVendedor(vector<Venta*>, Vendedor*);
 
 int main()
 {
@@ -600,8 +600,6 @@ int main()
       while (respuesta_vendedor=="s"){//respuesta de vendedor
         cout << "MENU PRINCIPAL DE VENDEDOR" << endl << endl;
         string opcion_vendedor;
-        int contador_articulos = 0;
-        double dinero = 0;
         vector <Venta*> ventas_vendedor;//lista de ventas que realiza el vendedor
         cout << "1.- Agregar al inventario" << endl;
         cout << "2.- Realizar Venta" << endl;
@@ -915,7 +913,6 @@ int main()
           cout << "Ingrese el nombre del cliente: ";
           getline(cin,cliente);
           Venta* venta = new Venta (cliente,vendedor);
-          int contador_venta=0;
           double subtotal = 0;
           string respuesta_venta="s";
           while (respuesta_venta=="s"){//Respuesta de continuar venta
@@ -952,8 +949,6 @@ int main()
                 }else if (typeid(*c)==typeid(Nintendo)) {
                   contador_nintendo--;
                 }
-                contador_venta++;
-                contador_articulos++;
                 venta->addConsola(c);
                 inventario->removeConsola(posiciones_consolas);
                 cout << "Se ha agregado una consola " << typeid(*c).name() << endl;
@@ -970,8 +965,6 @@ int main()
                 }
                 if (verificar_juego==true) {//inicio de verificacion de videjuego
                   venta->addVideojuego(v);
-                  contador_venta++;
-                  contador_articulos++;
                   inventario->removeVideojuego(posiciones_juegos);
                   cout << "Se ha agregado un videojuedo de la empresa de " << typeid(*v).name() << endl;
                 }//fin  de la verificacion de videojuego
@@ -1297,7 +1290,7 @@ int validacionSerie (Inventario* inventario)
   return serie;
 }
 
-void imprimirVenta(Venta* venta, int contador)
+void imprimirVenta(Venta* venta)
 {
   ofstream  salida;
   stringstream stm;
@@ -1309,7 +1302,8 @@ void imprimirVenta(Venta* venta, int contador)
   salida << venta->getHora_finalizacion() << endl;
   salida << "Vendedor: " << venta->getUsuario()->getNombre() << endl;
   salida << "Cliente: " << venta->getNombre_cliente() << endl;
-  salida << "Cantidad de articulos " << contador  << end;
+  int contador = venta->getConsolaSize() + venta->getVideojuegoSize();
+  salida << "Cantidad de articulos " << contador  << endl;
   for (int i=0; i < venta->getConsolaSize(); i++){
     salida << venta->getConsola(i)->getModelo() << "    L." << venta->getConsola(i)->getPrecio() << endl;
   }
@@ -1321,4 +1315,41 @@ void imprimirVenta(Venta* venta, int contador)
   salida << "Impuesto: " << impuesto << endl;
   double total = venta->getSubtotal() + impuesto;
   salida << "Total: " << total << endl;
+  salida.close();
+}
+
+void imprimirVendedor(vector<Venta*> ventas, Vendedor* vendedor)
+{
+  time_t now = time(0);
+  tm* time = localtime(&now);
+  ofstream salida;
+  stringstream stm;
+  string fichero;
+  int ano,mes,dia;
+  ano = time->tm_year + 1900;
+  mes = time->tm_mon +1;
+  dia = time->tm_mday;
+  stm << "./usuarios_log/"<<vendedor->getNombre() <<"_" << ano << "_" << mes << "_" << dia << ".log";
+  fichero = stm.str();
+  salida.open(fichero.c_str());
+  salida <<"        GAMEHUB         " << endl;
+  salida << "Nombre: " <<  vendedor->getNombre() << endl;
+  salida << "Hora entrada: " << vendedor->getHora_inicial() << endl ;
+  salida << "Hora Salida: " << vendedor->getHora_final() << endl;
+  salida << endl;
+  int contador = 0;
+  double dinero = 0;
+  for (int i = 0; i < ventas.size() ; i++){
+    for (int j = 0; j < ventas[i]->getConsolaSize(); j++){
+      contador++;
+      dinero += ventas[i]->getConsola(j)->getPrecio();
+    }
+    for (int k=0; k< ventas[i]->getVideojuegoSize(); k++){
+      contador++;
+      dinero += ventas[i]->getVideojuego(k)->getPrecio();
+    }
+  }
+  salida << "Cantidad de articulos vendidos: " << contador << endl;
+  salida << "Dinero generado: " << dinero << endl;
+  salida.close();
 }
