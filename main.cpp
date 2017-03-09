@@ -1407,6 +1407,8 @@ Inventario* leerArchivo()
   //inventario* inventario = NULL;
   ifstream entrada_consolas ("DatosConsolas.dat", ios::in | ios::binary);
   ifstream entrada_videojuegos("DatosVideojuegos.dat", ios::in | ios::binary);
-  ifstream entrada_contadores ("DatosContadores.dat", ios::in | ios::binary);
+  ifstream entrada_contadoresC ("DatosContadorConsola.dat", ios::in | ios::binary);
+  ifstream entrada_contadoresV ("DatosContadorVideojuego.dat", ios::in | ios::binary);
   //leyendo las consolas
+
 }
