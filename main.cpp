@@ -48,13 +48,17 @@ int validacionSerie(Inventario*);
 void imprimirVenta (Venta*);
 void imprimirVendedor(vector<Venta*>, Vendedor*);
 
+//Funciones para leer y escribir en archivo binario
+Inventario* leerArchivo();
+void escribirArchivo(Inventario*);
+
 int main()
 {
   //Leyendo la base de datos
-  ifstream entrada ("BaseDatos.dat", ios::in | ios::binary);
+  //ifstream entrada ("BaseDatos.dat", ios::in | ios::binary);
   Inventario* inventario = new Inventario();
-  entrada.read(reinterpret_cast<char*>(&inventario), sizeof (Inventario));
-  entrada.close();
+  /*entrada.read(reinterpret_cast<char*>(&inventario), sizeof (Inventario));
+  entrada.close();*/
 
   //Contadores de las consolas de microsoft, sony y Nintendo
   int contador_microsoft = inventario->getContador_microsoft();
@@ -82,10 +86,10 @@ int main()
       cin.ignore(256,'\n');
       cout << "Ingrese nombre: ";
       getline(cin,nombre);
-      cin.ignore(256,'\n');
-      cout << " Ingrese password: ";
+      //cin.ignore(256,'\n');
+      cout << "Ingrese password: ";
       getline(cin,contrasena);
-      cin.ignore(256,'\n');
+      //cin.ignore(256,'\n');
       if (nombre==administrador->getNombre() && contrasena==administrador->getContrasena()){
         autenticacion = true;
       }else {
@@ -102,7 +106,7 @@ int main()
           cout << "3.- Modificar" << endl;
           cout << "4.- Eliminar" << endl;
           cout << "Presiona una letra u otro numero para cancelar" << endl << endl;
-          cout << "Ingrese una opcion: " << endl;
+          cout << "Ingrese una opcion: ";
           cin>>menu_administrador;
           cout << endl;//salto de linea
           if (menu_administrador=="1"){//Agregar
@@ -490,7 +494,16 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el estado de la consola: ";
               getline(cin,estado);
-              modelo = consolaVideojuego();//TODO: diferenciar que tipo de consola es
+              Consola* c = inventario->getConsola(posicion);
+              if (typeid(*c)==typeid(Microsoft)) {
+                modelo = modeloMicrosoft();
+              }
+              else if (typeid(*c)==typeid(Sony)) {
+                modelo = modeloSony();
+              }
+              else if (typeid(*c)==typeid(Nintendo)) {
+                modelo = modeloNintendo();
+              }
               cout << "Ingrese el precio de la consola: ";
               cin>>precio;
               serie = validacionSerie(inventario);
@@ -500,6 +513,7 @@ int main()
               inventario->getConsola(posicion)->setPrecio(precio);
               inventario->getConsola(posicion)->setSerie(serie);
               cout << "Se ha modificado la consola" << endl;
+              delete c;
             }//fin de la opcion modificar de la consola
             else if (opcion_modificar=="2"){//opcion de modificar un videojuego
               cout << "MODIFICANDO VIDEOJUEGO" << endl << endl;
@@ -556,7 +570,22 @@ int main()
               cout << "ELIMINANDO CONSOLA" << endl << endl;//TODO: diferenciar que tipo de consola es?
               cout << "Ingrese una posicion para eliminar consola: ";
               cin>>posicion;
+              while (posicion<0 || posicion>inventario->sizeConsola()-1){
+                cout << "Error en la posicion" << endl;
+                cout << "Ingrese una posicion para eliminar consola: ";
+                cin>>posicion;
+              }
               cout << endl;//salto de linea
+              Consola* c = inventario->getConsola(posicion);
+              if (typeid(*c)==typeid(Microsoft)) {
+                contador_microsoft--;
+              }
+              else if (typeid(*c)==typeid(Sony)) {
+                contador_sony--;
+              }
+              else if (typeid(*c)==typeid(Nintendo)){
+                contador_nintendo--;
+              }
               inventario->removeConsola(posicion);
               cout << "Se ha eliminado una consola" << endl;
             }//fin de la opcion de eliminar consola
@@ -597,10 +626,10 @@ int main()
       Vendedor* vendedor = new Vendedor(nombre);
       vendedor->setHora_inicial();
       string respuesta_vendedor="s";
+      vector <Venta*> ventas_vendedor;//lista de ventas que realiza el vendedor
       while (respuesta_vendedor=="s"){//respuesta de vendedor
         cout << "MENU PRINCIPAL DE VENDEDOR" << endl << endl;
         string opcion_vendedor;
-        vector <Venta*> ventas_vendedor;//lista de ventas que realiza el vendedor
         cout << "1.- Agregar al inventario" << endl;
         cout << "2.- Realizar Venta" << endl;
         cout << "Presione una letra u otro numero para cancelar" << endl << endl;
@@ -613,6 +642,7 @@ int main()
           cout << "1.- Consola " << endl;
           cout << "2.- Videojuegos" << endl;
           cout << "Presione una letra u otro numero para cancelar" << endl << endl;
+          cout << "Ingrese una opcion: ";
           cin>>opcion_agregar;
           cout << endl;//salto de linea
           if (opcion_agregar=="1") {//opcion de agregar consolas de vendedor
@@ -922,6 +952,7 @@ int main()
             cout << "2.- Listar" << endl;
             cout << "Presione una letra u otro numero para cerrar" << endl << endl;
             cout << "Ingrese una opcion: ";
+            cin>>opcion_venta;
             if (opcion_venta=="1") {//opcion de agregar articulo a la venta
               cout << "AGREGANDO ARTICULO" << endl << endl;
               int serie;
@@ -1015,6 +1046,7 @@ int main()
           }//fin respuesta de la venta
           venta->setSubtotal(subtotal);
           venta->setHora_finalizacion();
+          imprimirVenta(venta);
           ventas_vendedor.push_back(venta);
           delete venta;
         }//fin de la opcion de realizar venta
@@ -1022,12 +1054,24 @@ int main()
         cout << "Desea continuar con usuario vendedor: ";
         cin>>respuesta_vendedor;
       }//fin de respuesta de vendedor
+      if (ventas_vendedor.size()>-1) {
+        imprimirVendedor(ventas_vendedor,vendedor);
+      }
+      //eliminando memoeria del vector de ventas
+      for (int i = 0; i < ventas_vendedor.size(); i++){
+        delete ventas_vendedor[i];
+      }
+      ventas_vendedor.clear();
+      delete vendedor;
     }//fin de de menu principal del usuario vendedor
     cout <<"Desea continuar: ";
     cin>>respuesta;
     cout << endl; // salto de linea
   }
-  //ELiminando espacio en memoria
+  //Guardando el contenido en el archivo binario
+  //ofstream salida ("BaseDatos.dat", ios::out | ios::binary);
+  //salida.write(reinterpret_cast<char*> (&inventario), sizeof (Inventario));
+  //salida.close();
   delete inventario;
   delete administrador;
   return 0;
@@ -1340,16 +1384,29 @@ void imprimirVendedor(vector<Venta*> ventas, Vendedor* vendedor)
   int contador = 0;
   double dinero = 0;
   for (int i = 0; i < ventas.size() ; i++){
-    for (int j = 0; j < ventas[i]->getConsolaSize(); j++){
-      contador++;
-      dinero += ventas[i]->getConsola(j)->getPrecio();
+    if (ventas[i]->getConsolaSize()>-1){
+      for (int j = 0; j < ventas[i]->getConsolaSize(); j++){
+        contador++;
+        dinero += ventas[i]->getConsola(j)->getPrecio();
+      }
     }
-    for (int k=0; k< ventas[i]->getVideojuegoSize(); k++){
-      contador++;
-      dinero += ventas[i]->getVideojuego(k)->getPrecio();
+    if (ventas[i]->getVideojuegoSize()>-1){
+      for (int k=0; k< ventas[i]->getVideojuegoSize(); k++){
+        contador++;
+        dinero += ventas[i]->getVideojuego(k)->getPrecio();
+      }
     }
   }
   salida << "Cantidad de articulos vendidos: " << contador << endl;
   salida << "Dinero generado: " << dinero << endl;
   salida.close();
+}
+
+Inventario* leerArchivo()
+{
+  //inventario* inventario = NULL;
+  ifstream entrada_consolas ("DatosConsolas.dat", ios::in | ios::binary);
+  ifstream entrada_videojuegos("DatosVideojuegos.dat", ios::in | ios::binary);
+  ifstream entrada_contadores ("DatosContadores.dat", ios::in | ios::binary);
+  //leyendo las consolas
 }
