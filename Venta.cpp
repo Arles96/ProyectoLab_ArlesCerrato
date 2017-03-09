@@ -33,6 +33,18 @@ Venta::Venta(string nombre_cliente, Vendedor* usuario)
   this->usuario = usuario;
 }
 
+Venta::~Venta()
+{
+  for(int i=0; i < this->getConsolaSize(); i++){
+    delete consolas[i];
+  }
+  consolas.clear();
+  for (int i=0; i < this->getVideojuegoSize(); i++){
+    delete videojuegos[i];
+  }
+  videojuegos.clear();
+}
+
 string Venta::getNombre_cliente()
 {
   return nombre_cliente;
@@ -107,7 +119,12 @@ void Venta::setHora_finalizacion()
 
   //variable donde se almacenara la hora
   stringstream stm;
-  stm << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << endl;
+  int ano,mes,dia;
+  ano = time->tm_year + 1900;
+  mes = time->tm_mon +1;
+  dia = time->tm_mday;
+  stm << "Fecha_" << ano << "_" << mes << "_" << dia << "_" << "Hora_" << time->tm_hour << "_"
+    << time->tm_min << "_" << time->tm_sec;
   hora_finalizacion = stm.str();
 }
 
