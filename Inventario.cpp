@@ -2,7 +2,7 @@
 
 Inventario::Inventario()
 {
-  contador_microsoft = 0; 
+  contador_microsoft = 0;
   contador_sony = 0;
   contador_nintendo = 0;
 }
@@ -55,6 +55,21 @@ void Inventario::setConsolas(vector<Consola*> consolas)
 void Inventario::setVideojuegos(vector<Videojuegos*> videojuegos)
 {
   this->videojuegos = videojuegos;
+}
+
+void Inventario::setContador_microsoft(int c)
+{
+  contador_microsoft = c;
+}
+
+void Inventario::setContador_sony(int s)
+{
+  contador_sony = s;
+}
+
+void Inventario::setContador_nintendo(int n)
+{
+  contador_nintendo = n;
 }
 
 void Inventario::addConsola(Consola* consola)

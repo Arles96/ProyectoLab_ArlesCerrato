@@ -56,7 +56,8 @@ int main()
 {
   //Leyendo la base de datos
   //ifstream entrada ("BaseDatos.dat", ios::in | ios::binary);
-  Inventario* inventario = new Inventario();
+  //Inventario* inventario = new Inventario();
+  Inventario* inventario = leerArchivo();
   /*entrada.read(reinterpret_cast<char*>(&inventario), sizeof (Inventario));
   entrada.close();*/
 
@@ -486,14 +487,14 @@ int main()
                 cin>>posicion;
               }
               cout << endl;//salto de linea
-              int ano, serie;
+              int anio, serie;
               string modelo, estado;
               double precio;
-              cout << "Ingrese el año de la consola: ";
-              cin>>ano;
-              cin.ignore(256,'\n');
               cout << "Ingrese el estado de la consola: ";
+              cin.ignore(256,'\n');
               getline(cin,estado);
+              cout << "Ingrese el año de la consola: ";
+              cin>>anio;
               Consola* c = inventario->getConsola(posicion);
               if (typeid(*c)==typeid(Microsoft)) {
                 modelo = modeloMicrosoft();
@@ -507,7 +508,7 @@ int main()
               cout << "Ingrese el precio de la consola: ";
               cin>>precio;
               serie = validacionSerie(inventario);
-              inventario->getConsola(posicion)->setAno(ano);
+              inventario->getConsola(posicion)->setAno(anio);
               inventario->getConsola(posicion)->setEstado(estado);
               inventario->getConsola(posicion)->setModelo(modelo);
               inventario->getConsola(posicion)->setPrecio(precio);
@@ -1069,6 +1070,7 @@ int main()
     cout << endl; // salto de linea
   }
   //Guardando el contenido en el archivo binario
+  escribirArchivo(inventario);
   //ofstream salida ("BaseDatos.dat", ios::out | ios::binary);
   //salida.write(reinterpret_cast<char*> (&inventario), sizeof (Inventario));
   //salida.close();
@@ -1320,6 +1322,7 @@ int validacionSerie (Inventario* inventario)
   //verificacion de los numeros de series de las consolas
   for (int i=0; i<inventario->sizeConsola();i++){
     if (serie == inventario->getConsola(i)->getSerie()){
+      cout << "Error en la serie repetida" << endl;
       serie = ingresoSerie();
       i--;
     }
@@ -1327,6 +1330,7 @@ int validacionSerie (Inventario* inventario)
   //verificacion de los numeros de series de los Videojuegos
   for (int i=0; i<inventario->sizeVideojuego(); i++){
     if (serie == inventario->getVideojuego(i)->getSerie()){
+      cout << "Error en la serie repetida" << endl;
       serie = ingresoSerie();
       i--;
     }
@@ -1404,11 +1408,90 @@ void imprimirVendedor(vector<Venta*> ventas, Vendedor* vendedor)
 
 Inventario* leerArchivo()
 {
-  //inventario* inventario = NULL;
+  Inventario* inventario = new Inventario();
   ifstream entrada_consolas ("DatosConsolas.dat", ios::in | ios::binary);
   ifstream entrada_videojuegos("DatosVideojuegos.dat", ios::in | ios::binary);
-  ifstream entrada_contadoresC ("DatosContadorConsola.dat", ios::in | ios::binary);
-  ifstream entrada_contadoresV ("DatosContadorVideojuego.dat", ios::in | ios::binary);
+  ifstream entrada_contadorM ("DatosContadorMicrosoft.dat" , ios::in | ios::binary);
+  ifstream entrada_contadorS ("DatosContadorSony.dat", ios::in | ios::binary);
+  ifstream entrada_contadorN ("DatosContadorNintendo.dat" , ios::in | ios::binary);
+  int microsoft=0;
+  int sony = 0;
+  int nintendo = 0;
+  //leyendo los contador de microsoft
+  if (entrada_contadorM.good()){
+    entrada_contadorM.read(reinterpret_cast<char*>(&microsoft), sizeof(int));
+    cout << "microsoft" << endl;
+    entrada_contadorM.close();
+  }
+  //leyendo los contador de sony
+  if (entrada_contadorS.good()) {
+    entrada_contadorS.read(reinterpret_cast<char*> (&sony), sizeof(int));
+    cout << "sony" << endl;
+    entrada_contadorS.close();
+  }
+  //leyendo contador de nintendo
+  if (entrada_contadorM.good()) {
+    entrada_contadorN.read(reinterpret_cast<char*> (&nintendo), sizeof(int));
+    cout << "nintendo" << endl;
+    entrada_contadorN.close();
+  }
   //leyendo las consolas
+  if (entrada_consolas.good()) {
+    while (!entrada_consolas.eof()){
+      Consola c ;
+      entrada_consolas.read(reinterpret_cast<char*> (&c), sizeof (Consola));
+      cout << c.getModelo() << endl;
+      Consola* pc = &c;
+      inventario->addConsola(pc);
+    }
+  }
+  entrada_consolas.close();
+  //leyendo videojuegos
+  if (entrada_videojuegos.good()) {
+    while (!entrada_videojuegos.eof()){
+      Videojuegos v;
+      entrada_videojuegos.read(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
+      cout << "Videojuegos" << endl;
+      Videojuegos* pv = &v;
+      inventario->addVideojuego(pv);
+    }
+  }
+  entrada_videojuegos.close();
+  inventario->setContador_microsoft(microsoft);
+  inventario->setContador_sony(sony);
+  inventario->setContador_nintendo(nintendo);
+  return inventario;
+}
 
+void escribirArchivo(Inventario* inventario)
+{
+  ofstream salida_consola ("DatosConsolas.dat", ios::out | ios::binary);
+  ofstream salida_videjuegos("DatosVideojuegos.dat", ios::out | ios::binary);
+  ofstream salida_contadorM ("DatosContadorMicrosoft.dat", ios::out | ios::binary);
+  ofstream salida_contadorS ("DatosContadorSony.dat", ios::out | ios::binary);
+  ofstream salida_contadorN ("DatosContadorNintendo.dat", ios::out | ios::binary);
+  //escribiendo contador microsoft
+  int microsoft = inventario->getContador_microsoft();
+  salida_contadorM.write(reinterpret_cast<char*> (&microsoft), sizeof(int));
+  salida_contadorM.close();
+  //escribiendo contador de sony
+  int sony = inventario->getContador_sony();
+  salida_contadorS.write(reinterpret_cast<char*> (&sony), sizeof(int));
+  salida_contadorS.close();
+  //escribiendo contador de nintendo
+  int nintendo = inventario->getContador_nintendo();
+  salida_contadorN.write(reinterpret_cast<char*> (&nintendo), sizeof(int));
+  salida_contadorN.close();
+  //escribiendo consolas
+  for (int i=0; i< inventario->sizeConsola(); i++){
+    Consola c = *inventario->getConsola(i);
+    salida_consola.write(reinterpret_cast<char*>(&c), sizeof (Consola));
+  }
+  salida_consola.close();
+  //escribiendo videojuegos
+  for (int i=0; i<inventario->sizeVideojuego(); i++){
+    Videojuegos v = *inventario->getVideojuego(i);
+    salida_videjuegos.write(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
+  }
+  salida_videjuegos.close();
 }
