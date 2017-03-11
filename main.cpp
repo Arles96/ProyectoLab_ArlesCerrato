@@ -1436,15 +1436,15 @@ Inventario* leerArchivo()
     entrada_contadorN.close();
   }
   //leyendo las consolas
-  if (entrada_consolas.good()) {
+  /*if (entrada_consolas.good()) {
     while (!entrada_consolas.eof()){
       Consola c ;
       entrada_consolas.read(reinterpret_cast<char*> (&c), sizeof (Consola));
       cout << c.getModelo() << endl;
       Consola* pc = &c;
-      inventario->addConsola(pc);
+      //inventario->addConsola(pc);
     }
-  }
+  }*/
   entrada_consolas.close();
   //leyendo videojuegos
   if (entrada_videojuegos.good()) {
@@ -1453,7 +1453,7 @@ Inventario* leerArchivo()
       entrada_videojuegos.read(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
       cout << "Videojuegos" << endl;
       Videojuegos* pv = &v;
-      inventario->addVideojuego(pv);
+      //inventario->addVideojuego(pv);
     }
   }
   entrada_videojuegos.close();
