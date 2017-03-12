@@ -50,15 +50,22 @@ void imprimirVenta (Venta*);
 void imprimirVendedor(vector<Venta*>, Vendedor*);
 
 //Funciones para leer y escribir en archivo binario
-Inventario* leerArchivo();
-void escribirArchivo(Inventario*);
+Inventario* leerArchivoBinario();
+void escribirArchivoBinario(Inventario*);
+
+//Funciones para leer y escribir en archivo de texto;
+Inventario* leerArchivoTexto();
+void EscribirArchivoTexto(Inventario*);
+
+//deferenciar el tipo de dato de consolas
+string tipoConsola(Consola*);
 
 int main()
 {
   //Leyendo la base de datos
   //ifstream entrada ("BaseDatos.dat", ios::in | ios::binary);
-  //Inventario* inventario = new Inventario();
-  Inventario* inventario = leerArchivo();
+  Inventario* inventario = new Inventario();
+  //Inventario* inventario = leerArchivo();
   /*entrada.read(reinterpret_cast<char*>(&inventario), sizeof (Inventario));
   entrada.close();*/
 
@@ -446,6 +453,9 @@ int main()
             cout << endl;//salto de linea
             if (opcion_listar=="1"){//opcion de listar Consolas
               cout << "LISTANDO CONSOLAS " << endl << endl;
+              cout << "Cantidad de consolas Microsoft: " << contador_microsoft << endl;
+              cout << "Cantidad de consolas Nintendo: " << contador_nintendo << endl;
+              cout << "Cantidad de consolas Sony: " << contador_sony << endl << endl;
               cout << "No.\t" << "Serie\t" << "Modelo\t" << "Estado\t" << "Año\t" << "Precio\t" << endl << endl;
               for (int i=0; i < inventario->sizeConsola(); i++){
                 cout << i << "\t" << inventario->getConsola(i)->getSerie() << "\t" <<
@@ -496,14 +506,13 @@ int main()
               getline(cin,estado);
               cout << "Ingrese el año de la consola: ";
               cin>>anio;
-              Consola* c = inventario->getConsola(posicion);
-              if (typeid(*c)==typeid(Microsoft)) {
+              if (tipoConsola(inventario->getConsola(posicion))=="Microsoft") {
                 modelo = modeloMicrosoft();
               }
-              else if (typeid(*c)==typeid(Sony)) {
+              else if (tipoConsola(inventario->getConsola(posicion))=="Sony") {
                 modelo = modeloSony();
               }
-              else if (typeid(*c)==typeid(Nintendo)) {
+              else if (tipoConsola(inventario->getConsola(posicion))=="Nintendo"  ) {
                 modelo = modeloNintendo();
               }
               cout << "Ingrese el precio de la consola: ";
@@ -515,7 +524,6 @@ int main()
               inventario->getConsola(posicion)->setPrecio(precio);
               inventario->getConsola(posicion)->setSerie(serie);
               cout << "Se ha modificado la consola" << endl;
-              delete c;
             }//fin de la opcion modificar de la consola
             else if (opcion_modificar=="2"){//opcion de modificar un videojuego
               cout << "MODIFICANDO VIDEOJUEGO" << endl << endl;
@@ -579,17 +587,17 @@ int main()
               }
               cout << endl;//salto de linea
               Consola* c = inventario->getConsola(posicion);
-              if (typeid(*c)==typeid(Microsoft)) {
+              if (tipoConsola(inventario->getConsola(posicion))=="Microsoft") {
                 contador_microsoft--;
               }
-              else if (typeid(*c)==typeid(Sony)) {
+              else if (tipoConsola(inventario->getConsola(posicion))=="Sony") {
                 contador_sony--;
               }
-              else if (typeid(*c)==typeid(Nintendo)){
+              else if (tipoConsola(inventario->getConsola(posicion))=="Nintendo"){
                 contador_nintendo--;
               }
               inventario->removeConsola(posicion);
-              cout << "Se ha eliminado una consola" << endl;
+              cout << "Se ha eliminado una consola " << tipoConsola(inventario->getConsola(posicion)) << endl;
             }//fin de la opcion de eliminar consola
             else if (opcion_eliminar=="2"){//opcion de eliminar de videojuego
               cout << "ELIMINANDO VIDEOJUEGO" << endl << endl;
@@ -975,16 +983,16 @@ int main()
                 }
               }
               if (verificar_consola==true) {//inicio de la verificacion de consola
-                if (typeid(*c)==typeid(Microsoft)){
+                if (tipoConsola(inventario->getConsola(posiciones_consolas))=="Microsoft"){
                   contador_microsoft--;
-                }else if (typeid(*c)==typeid(Sony)) {
+                }else if (tipoConsola(inventario->getConsola(posiciones_consolas))=="Sony") {
                   contador_sony--;
-                }else if (typeid(*c)==typeid(Nintendo)) {
+                }else if (tipoConsola(inventario->getConsola(posiciones_consolas))=="Nintendo") {
                   contador_nintendo--;
                 }
                 venta->addConsola(c);
                 inventario->removeConsola(posiciones_consolas);
-                cout << "Se ha agregado una consola " << typeid(*c).name() << endl;
+                cout << "Se ha agregado una consola " << tipoConsola(inventario->getConsola(posiciones_consolas)) << endl;
               }//fin de la verificacion de consola
               else {//verificacion de videojuegos
                 for (int i=0; i < inventario->sizeVideojuego(); i++){
@@ -1018,6 +1026,9 @@ int main()
               cin>>opcion_listar;
               if (opcion_listar=="1") {//opcion de listar Consolas
                 cout << "LISTA DE CONSOLAS" << endl << endl;
+                cout << "Cantidad de consolas Microsoft: " << contador_microsoft << endl;
+                cout << "Cantidad de consolas Sony: " << contador_sony << endl;
+                cout << "Cantidad de consolas Nintendo: " << contador_nintendo << endl << endl;
                 cout << "No.\t" << "Serie'\t" << "Modelo\t" << endl << endl;
                 for (int i=0; i < inventario->sizeConsola(); i++){
                   cout << i << "\t" << inventario->getConsola(i)->getSerie() << "\t" <<
@@ -1071,7 +1082,7 @@ int main()
     cout << endl; // salto de linea
   }
   //Guardando el contenido en el archivo binario
-  escribirArchivo(inventario);
+  //escribirArchivoBinario(inventario);
   //ofstream salida ("BaseDatos.dat", ios::out | ios::binary);
   //salida.write(reinterpret_cast<char*> (&inventario), sizeof (Inventario));
   //salida.close();
@@ -1407,7 +1418,7 @@ void imprimirVendedor(vector<Venta*> ventas, Vendedor* vendedor)
   salida.close();
 }
 
-Inventario* leerArchivo()
+Inventario* leerArchivoBinario()
 {
   Inventario* inventario = new Inventario();
   ifstream entrada_consolas ("DatosConsolas.dat", ios::in | ios::binary);
@@ -1474,7 +1485,7 @@ Inventario* leerArchivo()
   return inventario;
 }
 
-void escribirArchivo(Inventario* inventario)
+void escribirArchivoBinario(Inventario* inventario)
 {
   ofstream salida_consola ("DatosConsolas.dat", ios::out | ios::binary);
   ofstream salida_videjuegos("DatosVideojuegos.dat", ios::out | ios::binary);
@@ -1506,4 +1517,37 @@ void escribirArchivo(Inventario* inventario)
     salida_videjuegos.write(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
   }
   salida_videjuegos.close();
+}
+
+Inventario* leerArchivoTexto()
+{//TODO trabajar despues aca con leer
+  Inventario* inventario = new Inventario();
+  return inventario;
+}
+
+void EscribirArchivoTexto()
+{//TODO trabajar aqui en archivo
+
+}
+
+string tipoConsola(Consola* c)
+  {
+  string modelo = c->getModelo();
+  if (modelo=="xbox" || modelo=="xbox 360" || modelo=="xbox One") {
+    return "Microsoft";
+  }else if (modelo=="Play Station 1" || modelo=="Play Station 2" || modelo=="Play Station 3") {
+    return "Sony";
+  }else if (modelo=="Play Station 4" || modelo=="PSP" || modelo=="PS Vita") {
+    return "Sony";
+  }else if (modelo=="Nintendo Entertainment System" || modelo=="Super Nintendo Entertainment System") {
+    return "Nintendo";
+  }else if (modelo=="Nintendo 64" || modelo=="Nintendo Gamecube" || modelo=="Nintendo Wii"){
+    return "Nintendo";
+  }else if (modelo=="Nintendo Wii U" || modelo=="Nintendo Switch" || modelo=="Gameboy"){
+    return "Nintendo";
+  }else if (modelo=="Gameboy Colors" || modelo=="Gameboy Advance" || modelo=="Nintendo DS") {
+    return "Nintendo";
+  }else if (modelo=="Nintendo DSi" || modelo=="Nintendo 3DS" || modelo=="Nintendo New 3DS") {
+    return "Nintendo";
+  }
 }
