@@ -1,4 +1,5 @@
 #include <vector>
+#include <exception>
 #include <iostream>
 #include <fstream>
 #include <typeinfo>
@@ -233,7 +234,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -255,7 +256,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -277,7 +278,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -299,7 +300,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -321,7 +322,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -343,7 +344,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //scin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -365,7 +366,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -387,7 +388,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                cin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -408,7 +409,7 @@ int main()
                 cout << "AGREGANDO VIDEOJUEGOS DE UBISOFT" << endl << endl;
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
-                getline(cin,nombre);
+                //getline(cin,nombre);
                 cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
@@ -1437,23 +1438,33 @@ Inventario* leerArchivo()
   }
   //leyendo las consolas
   /*if (entrada_consolas.good()) {
-    while (!entrada_consolas.eof()){
-      Consola c ;
-      entrada_consolas.read(reinterpret_cast<char*> (&c), sizeof (Consola));
-      cout << c.getModelo() << endl;
-      Consola* pc = &c;
-      //inventario->addConsola(pc);
+    try{
+      while (!entrada_consolas.eof()){
+        Consola c ;
+        entrada_consolas.read(reinterpret_cast<char*> (&c), sizeof (Consola));
+        cout << c.getModelo() << endl;
+        Consola* pc = &c;
+        inventario->addConsola(pc);
+      }
+    }catch(exception& e){
+      cout << "Error en leer el archivo de consola" << endl;
+      cout << e.what() << endl;
     }
   }*/
   entrada_consolas.close();
   //leyendo videojuegos
   if (entrada_videojuegos.good()) {
-    while (!entrada_videojuegos.eof()){
-      Videojuegos v;
-      entrada_videojuegos.read(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
-      cout << "Videojuegos" << endl;
-      Videojuegos* pv = &v;
-      //inventario->addVideojuego(pv);
+    try{
+      while (!entrada_videojuegos.eof()){
+        Videojuegos v;
+        entrada_videojuegos.read(reinterpret_cast<char*> (&v), sizeof(Videojuegos));
+        cout << "Videojuegos" << endl;
+        Videojuegos* pv = &v;
+        inventario->addVideojuego(pv);
+      }
+    }catch (exception& e){
+      cout << "Error en leer el archivo de videojuegos" << endl;
+      cout << e.what() << endl;
     }
   }
   entrada_videojuegos.close();
@@ -1487,6 +1498,7 @@ void escribirArchivo(Inventario* inventario)
     Consola c = *inventario->getConsola(i);
     salida_consola.write(reinterpret_cast<char*>(&c), sizeof (Consola));
   }
+  salida_consola.flush();
   salida_consola.close();
   //escribiendo videojuegos
   for (int i=0; i<inventario->sizeVideojuego(); i++){
