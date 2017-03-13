@@ -64,12 +64,9 @@ string tipoConsola(string);
 int main()
 {
   //Leyendo la base de datos
-  //ifstream entrada ("BaseDatos.dat", ios::in | ios::binary);
-  Inventario* inventario = new Inventario();
+  //Inventario* inventario = new Inventario();
   //Inventario* inventario = leerArchivo();
-  /*entrada.read(reinterpret_cast<char*>(&inventario), sizeof (Inventario));
-  entrada.close();*/
-
+  Inventario* inventario = leerArchivoTexto();
   //Contadores de las consolas de microsoft, sony y Nintendo
   int contador_microsoft = inventario->getContador_microsoft();
   int contador_sony = inventario->getContador_sony();
@@ -352,7 +349,7 @@ int main()
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
                 getline(cin,nombre);
-                //scin.ignore(256,'\n');
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -417,8 +414,8 @@ int main()
                 cout << "AGREGANDO VIDEOJUEGOS DE UBISOFT" << endl << endl;
                 cin.ignore(256,'\n');
                 cout << "Ingrese el nombre del juego: ";
-                //getline(cin,nombre);
-                cin.ignore(256,'\n');
+                getline(cin,nombre);
+                //cin.ignore(256,'\n');
                 cout << "Ingrese el estado del juego: ";
                 getline(cin,estado);
                 consola = consolaVideojuego();
@@ -467,6 +464,7 @@ int main()
             }//fin de la opcion de listar consola
             else if (opcion_listar=="2"){//opcion de listar videojuegos
               cout << "LISTANDO VIDEOJUEGOS" << endl << endl;
+              cout << "No.\t" << "Serie\t" << "Nombre\t" << "Estado\t" << "Genero\t" << "Precio\t" << endl;
               for (int i=0; i < inventario->sizeVideojuego(); i++){
                 cout << i << "\t" << inventario->getVideojuego(i)->getSerie() << "\t" <<
                   inventario->getVideojuego(i)->getNombre() << "\t" << inventario->getVideojuego(i)->getEstado()
@@ -754,11 +752,11 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
               consola = consolaVideojuego();
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -776,10 +774,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -796,11 +794,11 @@ int main()
               cout << "AGREGANDO JUEGO DE NINTENDO" << endl << endl;
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
-              getline(cin,nombre);
+              //getline(cin,nombre);
               cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -818,10 +816,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -839,10 +837,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -860,10 +858,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -881,10 +879,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -902,10 +900,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -923,10 +921,10 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -1082,11 +1080,13 @@ int main()
     cin>>respuesta;
     cout << endl; // salto de linea
   }
+  //seteando los contadores
+  inventario->setContador_microsoft(contador_microsoft);
+  inventario->setContador_sony(contador_sony);
+  inventario->setContador_nintendo(contador_nintendo);
   //Guardando el contenido en el archivo binario
   //escribirArchivoBinario(inventario);
-  //ofstream salida ("BaseDatos.dat", ios::out | ios::binary);
-  //salida.write(reinterpret_cast<char*> (&inventario), sizeof (Inventario));
-  //salida.close();
+  EscribirArchivoTexto(inventario);
   delete inventario;
   delete administrador;
   return 0;
@@ -1524,30 +1524,30 @@ Inventario* leerArchivoTexto()
 {
   Inventario* inventario = new Inventario();
   //leyendo los contadores de consolas en archivo binario
-  ifstream entrada_contadorM ("DatosContadorMicrosoft.dat" , ios::in | ios::binary);
-  ifstream entrada_contadorS ("DatosContadorSony.dat", ios::in | ios::binary);
-  ifstream entrada_contadorN ("DatosContadorNintendo.dat" , ios::in | ios::binary);
+  ifstream entrada_contadorM("DatosContadorMicrosoft.dat", ios::in | ios::binary);
+  ifstream entrada_contadorS("DatosContadorSony.dat", ios::in | ios::binary);
+  ifstream entrada_contadorN("DatosContadorNintendo.dat", ios::in | ios::binary);
   int microsoft=0;
   int sony = 0;
   int nintendo = 0;
   //leyendo los contador de microsoft
   if (entrada_contadorM.good()){
     entrada_contadorM.read(reinterpret_cast<char*>(&microsoft), sizeof(int));
+    inventario->setContador_microsoft(microsoft);
     entrada_contadorM.close();
   }
-  inventario->setContador_microsoft(microsoft);
   //leyendo los contador de sony
   if (entrada_contadorS.good()) {
-    entrada_contadorS.read(reinterpret_cast<char*> (&sony), sizeof(int));
+    entrada_contadorS.read(reinterpret_cast<char*>(&sony), sizeof(int));
+    inventario->setContador_sony(sony);
     entrada_contadorS.close();
   }
-  inventario->setContador_sony(sony);
   //leyendo contador de nintendo
-  if (entrada_contadorM.good()) {
-    entrada_contadorN.read(reinterpret_cast<char*> (&nintendo), sizeof(int));
+  if (entrada_contadorN.good()) {
+    entrada_contadorN.read(reinterpret_cast<char*>(&nintendo), sizeof(int));
+    inventario->setContador_nintendo(nintendo);
     entrada_contadorN.close();
   }
-  inventario->setContador_nintendo(nintendo);
   //leyendo consolas
   ifstream entrada_consolas;
   entrada_consolas.open("DatosConsolas.txt");
@@ -1565,24 +1565,26 @@ Inventario* leerArchivoTexto()
       atributos[3] = "";
       atributos[4] = "";
       getline(entrada_consolas,linea);
-      for (int i=0; i<linea.size(); i++){
-        if (linea[i]!=','){
-          atributos[c] += linea[i];
-        }else {
-          c++;
+      if (linea!="") {
+        for (int i=0; i<linea.size(); i++){
+          if (linea[i]!=','){
+            atributos[c] += linea[i];
+          }else {
+            c++;
+          }
         }
-      }
-      ano = atoi(atributos[0].c_str());
-      modelo = atributos[1];
-      estado = atributos[2];
-      serie = atoi(atributos[3].c_str());
-      precio = (double) atoi(atributos[4].c_str());
-      if (tipoConsola(modelo)=="Microsoft") {
-        inventario->addConsola(new Microsoft(ano,modelo,estado,serie,precio));
-      }else if (tipoConsola(modelo)=="Sony") {
-        inventario->addConsola(new Sony(ano,modelo,estado,serie,precio));
-      }else {
-        inventario->addConsola(new Nintendo(ano,modelo,estado,serie,precio));
+        ano = atoi(atributos[0].c_str());
+        modelo = atributos[1];
+        estado = atributos[2];
+        serie = atoi(atributos[3].c_str());
+        precio = (double) atoi(atributos[4].c_str());
+        if (tipoConsola(modelo)=="Microsoft") {
+          inventario->addConsola(new Microsoft(ano,modelo,estado,serie,precio));
+        }else if (tipoConsola(modelo)=="Sony") {
+          inventario->addConsola(new Sony(ano,modelo,estado,serie,precio));
+        }else if (tipoConsola(modelo)=="Nintendo") {
+          inventario->addConsola(new Nintendo(ano,modelo,estado,serie,precio));
+        }
       }
     }//fin del mientras
   }//fin de la condicion
@@ -1607,22 +1609,24 @@ Inventario* leerArchivoTexto()
       atributos[7]="";
       int c = 0;
       getline(entrada_videojuegos,linea);
-      for (int i=0; i < linea.size(); i++){
-        if (linea[i]!=',') {
-          atributos[c] += linea[i];
-        }else {
-          c++;
+      if (linea!="") {
+        for (int i=0; i < linea.size(); i++){
+          if (linea[i]!=',') {
+            atributos[c] += linea[i];
+          }else {
+            c++;
+          }
         }
+        nombre = atributos[0];
+        ano = atoi(atributos[1].c_str());
+        consola = atributos[2];
+        jugadores = atoi(atributos[3].c_str());
+        genero = atributos[4];
+        estado = atributos[5];
+        serie = atoi(atributos[6].c_str());
+        precio = (double) atoi(atributos[7].c_str());
+        inventario->addVideojuego(new Videojuegos(nombre,ano,consola,jugadores,genero,estado,serie,precio));
       }
-      nombre = atributos[0];
-      ano = atoi(atributos[1].c_str());
-      consola = atributos[2];
-      jugadores = atoi(atributos[3].c_str());
-      genero = atributos[4];
-      estado = atributos[5];
-      serie = atoi(atributos[6].c_str());
-      precio = (double) atoi(atributos[7].c_str());
-      inventario->addVideojuego(new Videojuegos(nombre,ano,consola,jugadores,genero,estado,serie,precio));
     }//fin del mientras
   }// fin de la condicion
   entrada_videojuegos.close();
@@ -1656,15 +1660,15 @@ void EscribirArchivoTexto(Inventario* inventario)
   ofstream salida_contadorN ("DatosContadorNintendo.dat", ios::out | ios::binary);
   //escribiendo contador microsoft
   int microsoft = inventario->getContador_microsoft();
-  salida_contadorM.write(reinterpret_cast<char*> (&microsoft), sizeof(int));
+  salida_contadorM.write(reinterpret_cast<char*>(&microsoft), sizeof(int));
   salida_contadorM.close();
   //escribiendo contador de sony
   int sony = inventario->getContador_sony();
-  salida_contadorS.write(reinterpret_cast<char*> (&sony), sizeof(int));
+  salida_contadorS.write(reinterpret_cast<char*>(&sony), sizeof(int));
   salida_contadorS.close();
   //escribiendo contador de nintendo
   int nintendo = inventario->getContador_nintendo();
-  salida_contadorN.write(reinterpret_cast<char*> (&nintendo), sizeof(int));
+  salida_contadorN.write(reinterpret_cast<char*>(&nintendo), sizeof(int));
   salida_contadorN.close();
 }
 

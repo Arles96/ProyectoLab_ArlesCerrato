@@ -1,0 +1,4 @@
+2012,xbox One,nueva,1001,2500
+2012,xbox One,nueva,1002,2500
+2012,xbox One,nueva,1003,2500
+2012,xbox One,nueva,1004,2500
