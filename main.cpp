@@ -2,7 +2,7 @@
 #include <exception>
 #include <iostream>
 #include <fstream>
-#include <typeinfo>
+#include <cstdlib>
 #include <sstream>
 #include "Administrador.h"
 #include "Bandai.h"
@@ -59,6 +59,7 @@ void EscribirArchivoTexto(Inventario*);
 
 //deferenciar el tipo de dato de consolas
 string tipoConsola(Consola*);
+string tipoConsola(string);
 
 int main()
 {
@@ -1007,7 +1008,7 @@ int main()
                 if (verificar_juego==true) {//inicio de verificacion de videjuego
                   venta->addVideojuego(v);
                   inventario->removeVideojuego(posiciones_juegos);
-                  cout << "Se ha agregado un videojuedo de la empresa de " << typeid(*v).name() << endl;
+                  cout << "Se ha agregado un videojuedo" << endl;
                 }//fin  de la verificacion de videojuego
                 else {
                   cout << "Error en el numero de serie" << endl;
@@ -1520,19 +1521,177 @@ void escribirArchivoBinario(Inventario* inventario)
 }
 
 Inventario* leerArchivoTexto()
-{//TODO trabajar despues aca con leer
+{
   Inventario* inventario = new Inventario();
+  //leyendo los contadores de consolas en archivo binario
+  ifstream entrada_contadorM ("DatosContadorMicrosoft.dat" , ios::in | ios::binary);
+  ifstream entrada_contadorS ("DatosContadorSony.dat", ios::in | ios::binary);
+  ifstream entrada_contadorN ("DatosContadorNintendo.dat" , ios::in | ios::binary);
+  int microsoft=0;
+  int sony = 0;
+  int nintendo = 0;
+  //leyendo los contador de microsoft
+  if (entrada_contadorM.good()){
+    entrada_contadorM.read(reinterpret_cast<char*>(&microsoft), sizeof(int));
+    entrada_contadorM.close();
+  }
+  inventario->setContador_microsoft(microsoft);
+  //leyendo los contador de sony
+  if (entrada_contadorS.good()) {
+    entrada_contadorS.read(reinterpret_cast<char*> (&sony), sizeof(int));
+    entrada_contadorS.close();
+  }
+  inventario->setContador_sony(sony);
+  //leyendo contador de nintendo
+  if (entrada_contadorM.good()) {
+    entrada_contadorN.read(reinterpret_cast<char*> (&nintendo), sizeof(int));
+    entrada_contadorN.close();
+  }
+  inventario->setContador_nintendo(nintendo);
+  //leyendo consolas
+  ifstream entrada_consolas;
+  entrada_consolas.open("DatosConsolas.txt");
+  if (entrada_consolas.is_open()) {
+    string linea;
+    while (!entrada_consolas.eof()){
+      int ano, serie;
+      string modelo, estado;
+      double precio;
+      int c = 0;
+      string atributos [5];
+      atributos[0] = "";
+      atributos[1] = "";
+      atributos[2] = "";
+      atributos[3] = "";
+      atributos[4] = "";
+      getline(entrada_consolas,linea);
+      for (int i=0; i<linea.size(); i++){
+        if (linea[i]!=','){
+          atributos[c] += linea[i];
+        }else {
+          c++;
+        }
+      }
+      ano = atoi(atributos[0].c_str());
+      modelo = atributos[1];
+      estado = atributos[2];
+      serie = atoi(atributos[3].c_str());
+      precio = (double) atoi(atributos[4].c_str());
+      if (tipoConsola(modelo)=="Microsoft") {
+        inventario->addConsola(new Microsoft(ano,modelo,estado,serie,precio));
+      }else if (tipoConsola(modelo)=="Sony") {
+        inventario->addConsola(new Sony(ano,modelo,estado,serie,precio));
+      }else {
+        inventario->addConsola(new Nintendo(ano,modelo,estado,serie,precio));
+      }
+    }//fin del mientras
+  }//fin de la condicion
+  entrada_consolas.close();
+  //leyendos videojuegos
+  ifstream entrada_videojuegos;
+  entrada_videojuegos.open("DatosVideojuegos.txt");
+  if (entrada_videojuegos.is_open()) {
+    string linea;
+    while (!entrada_videojuegos.eof()){
+      string nombre, consola, genero, estado;
+      int ano, jugadores, serie;
+      double precio;
+      string atributos[8];
+      atributos[0]="";
+      atributos[1]="";
+      atributos[2]="";
+      atributos[3]="";
+      atributos[4]="";
+      atributos[5]="";
+      atributos[6]="";
+      atributos[7]="";
+      int c = 0;
+      getline(entrada_videojuegos,linea);
+      for (int i=0; i < linea.size(); i++){
+        if (linea[i]!=',') {
+          atributos[c] += linea[i];
+        }else {
+          c++;
+        }
+      }
+      nombre = atributos[0];
+      ano = atoi(atributos[1].c_str());
+      consola = atributos[2];
+      jugadores = atoi(atributos[3].c_str());
+      genero = atributos[4];
+      estado = atributos[5];
+      serie = atoi(atributos[6].c_str());
+      precio = (double) atoi(atributos[7].c_str());
+      inventario->addVideojuego(new Videojuegos(nombre,ano,consola,jugadores,genero,estado,serie,precio));
+    }//fin del mientras
+  }// fin de la condicion
+  entrada_videojuegos.close();
   return inventario;
 }
 
-void EscribirArchivoTexto()
-{//TODO trabajar aqui en archivo
-
+void EscribirArchivoTexto(Inventario* inventario)
+{
+  //escribir datos de Consola
+  ofstream salida_consola;
+  salida_consola.open("DatosConsolas.txt");
+  for (int i=0; i < inventario->sizeConsola(); i++){
+    salida_consola << inventario->getConsola(i)->getAno() << "," << inventario->getConsola(i)->getModelo()
+      << "," << inventario->getConsola(i)->getEstado() << "," << inventario->getConsola(i)->getSerie() <<
+      "," << inventario->getConsola(i)->getPrecio() << endl;
+  }
+  salida_consola.close();
+  //escribir datos de videojuegos
+  ofstream salida_videjuegos;
+  salida_videjuegos.open("DatosVideojuegos.txt");
+  for (int i=0; i < inventario->sizeVideojuego(); i++){
+    salida_videjuegos << inventario->getVideojuego(i)->getNombre() << "," <<
+      inventario->getVideojuego(i)->getAno() << "," << inventario->getVideojuego(i)->getConsola()
+      << "," << inventario->getVideojuego(i)->getNumero_jugadores() << "," <<
+      inventario->getVideojuego(i)->getGenero() << "," << inventario->getVideojuego(i)->getEstado() <<
+      "," << inventario->getVideojuego(i)->getSerie() << "," << inventario->getVideojuego(i)->getPrecio() << endl;
+  }
+  //escribiendo en archivos binarios los Contadores
+  ofstream salida_contadorM ("DatosContadorMicrosoft.dat", ios::out | ios::binary);
+  ofstream salida_contadorS ("DatosContadorSony.dat", ios::out | ios::binary);
+  ofstream salida_contadorN ("DatosContadorNintendo.dat", ios::out | ios::binary);
+  //escribiendo contador microsoft
+  int microsoft = inventario->getContador_microsoft();
+  salida_contadorM.write(reinterpret_cast<char*> (&microsoft), sizeof(int));
+  salida_contadorM.close();
+  //escribiendo contador de sony
+  int sony = inventario->getContador_sony();
+  salida_contadorS.write(reinterpret_cast<char*> (&sony), sizeof(int));
+  salida_contadorS.close();
+  //escribiendo contador de nintendo
+  int nintendo = inventario->getContador_nintendo();
+  salida_contadorN.write(reinterpret_cast<char*> (&nintendo), sizeof(int));
+  salida_contadorN.close();
 }
 
 string tipoConsola(Consola* c)
-  {
+{
   string modelo = c->getModelo();
+  if (modelo=="xbox" || modelo=="xbox 360" || modelo=="xbox One") {
+    return "Microsoft";
+  }else if (modelo=="Play Station 1" || modelo=="Play Station 2" || modelo=="Play Station 3") {
+    return "Sony";
+  }else if (modelo=="Play Station 4" || modelo=="PSP" || modelo=="PS Vita") {
+    return "Sony";
+  }else if (modelo=="Nintendo Entertainment System" || modelo=="Super Nintendo Entertainment System") {
+    return "Nintendo";
+  }else if (modelo=="Nintendo 64" || modelo=="Nintendo Gamecube" || modelo=="Nintendo Wii"){
+    return "Nintendo";
+  }else if (modelo=="Nintendo Wii U" || modelo=="Nintendo Switch" || modelo=="Gameboy"){
+    return "Nintendo";
+  }else if (modelo=="Gameboy Colors" || modelo=="Gameboy Advance" || modelo=="Nintendo DS") {
+    return "Nintendo";
+  }else if (modelo=="Nintendo DSi" || modelo=="Nintendo 3DS" || modelo=="Nintendo New 3DS") {
+    return "Nintendo";
+  }
+}
+
+string tipoConsola(string modelo)
+{
   if (modelo=="xbox" || modelo=="xbox 360" || modelo=="xbox One") {
     return "Microsoft";
   }else if (modelo=="Play Station 1" || modelo=="Play Station 2" || modelo=="Play Station 3") {
