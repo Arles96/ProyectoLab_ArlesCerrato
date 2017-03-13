@@ -199,7 +199,7 @@ int main()
                 contador_nintendo += cantidad;
                 cout << "Ingrese el año de la consola: ";
                 cin>>ano;
-                modelo = modeloSony();
+                modelo = modeloNintendo();
                 cin.ignore(256,'\n');
                 cout << "Ingrese el estado de la consola: ";
                 getline(cin,estado);
@@ -464,7 +464,7 @@ int main()
             }//fin de la opcion de listar consola
             else if (opcion_listar=="2"){//opcion de listar videojuegos
               cout << "LISTANDO VIDEOJUEGOS" << endl << endl;
-              cout << "No.\t" << "Serie\t" << "Nombre\t" << "Estado\t" << "Genero\t" << "Precio\t" << endl;
+              cout << "No.\t" << "Serie\t" << "Nombre\t" << "Estado\t" << "Genero\t" << "Precio\t" << endl << endl;
               for (int i=0; i < inventario->sizeVideojuego(); i++){
                 cout << i << "\t" << inventario->getVideojuego(i)->getSerie() << "\t" <<
                   inventario->getVideojuego(i)->getNombre() << "\t" << inventario->getVideojuego(i)->getEstado()
@@ -542,16 +542,18 @@ int main()
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
               getline(cin,nombre);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del videojuego: ";
               getline(cin,estado);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
-              cin.ignore(256,'\n');
+              //cin.ignore(256,'\n');
               consola = consolaVideojuego();
               cout << "Ingrese el numero de jugadores del juego: ";
               cin>>numero_jugadores;
+              cout << "Ingrese el precio del juego: ";
+              cin>>precio;
               serie = validacionSerie(inventario);
               inventario->getVideojuego(posicion)->setAno(ano);
               inventario->getVideojuego(posicion)->setNombre(nombre);
@@ -756,7 +758,7 @@ int main()
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
               consola = consolaVideojuego();
-              //cin.ignore(256,'\n');
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -777,7 +779,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -794,11 +797,12 @@ int main()
               cout << "AGREGANDO JUEGO DE NINTENDO" << endl << endl;
               cin.ignore(256,'\n');
               cout << "Ingrese el nombre del juego: ";
-              //getline(cin,nombre);
-              cin.ignore(256,'\n');
+              getline(cin,nombre);
+              //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -819,7 +823,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -840,7 +845,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -861,7 +867,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -882,7 +889,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -903,7 +911,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -924,7 +933,8 @@ int main()
               //cin.ignore(256,'\n');
               cout << "Ingrese el estado del juego: ";
               getline(cin,estado);
-              //cin.ignore(256,'\n');
+              consola = consolaVideojuego();
+              cin.ignore(256,'\n');
               cout << "Ingrese el genero del juego: ";
               getline(cin,genero);
               cout << "Ingrese el año del juego: ";
@@ -1065,6 +1075,7 @@ int main()
         cout << endl;//salto de linea
         cout << "Desea continuar con usuario vendedor: ";
         cin>>respuesta_vendedor;
+        cout << endl;
       }//fin de respuesta de vendedor
       if (ventas_vendedor.size()>-1) {
         imprimirVendedor(ventas_vendedor,vendedor);
@@ -1203,8 +1214,8 @@ string consolaVideojuego()
      cout << "2.- Sony" << endl;
      cout << "3.- Nintendo" << endl << endl;
      cout << "Ingrese una opcion: ";
-     cout << endl;//salto de linea
      cin>>opcion_consola;
+     cout << endl;//salto de linea
      if (opcion_consola=="1"){//Opcion Microsoft
        string opcion_microsoft;
        cout << "MENU CONSOLAS MICROSOFT" << endl << endl;

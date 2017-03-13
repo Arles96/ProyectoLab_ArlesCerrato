@@ -1,4 +1,44 @@
-2012,xbox One,nueva,1001,2500
-2012,xbox One,nueva,1002,2500
-2012,xbox One,nueva,1003,2500
-2012,xbox One,nueva,1004,2500
+2015,xbox One,nuevas,1001,9500
+2015,xbox One,nuevas,1002,9500
+2015,xbox One,nuevas,1003,9500
+2015,xbox One,nuevas,1004,9500
+2015,xbox One,nuevas,1005,9500
+2015,xbox One,nuevas,1006,9500
+2015,xbox One,nuevas,1007,9500
+2015,xbox One,nuevas,1008,9500
+2015,xbox One,nuevas,1009,9500
+2015,xbox One,nuevas,1010,9500
+2015,Play Station 4,nueva,1011,10500
+2015,Play Station 4,nueva,1012,10500
+2015,Play Station 4,nueva,1013,10500
+2015,Play Station 4,nueva,1014,10500
+2015,Play Station 4,nueva,1015,10500
+2015,Play Station 4,nueva,1016,10500
+2015,Play Station 4,nueva,1017,10500
+2015,Play Station 4,nueva,1018,10500
+2015,Play Station 4,nueva,1019,10500
+2015,Play Station 4,nueva,1020,10500
+2011,Nintendo Wii,usada,1021,2300
+2011,Nintendo Wii,usada,1022,2300
+2011,Nintendo Wii,usada,1023,2300
+2011,Nintendo Wii,usada,1024,2300
+2011,Nintendo Wii,usada,1025,2300
+2012,xbox 360,usada,1026,2500
+2012,xbox 360,usada,1027,2500
+2012,xbox 360,usada,1028,2500
+2012,xbox 360,usada,1029,2500
+2012,xbox 360,usada,1030,2500
+2013,Play Station 3,usada,1031,4000
+2013,Play Station 3,usada,1032,4000
+2013,Play Station 3,usada,1033,4000
+2013,Play Station 3,usada,1034,4000
+2013,Play Station 3,usada,1035,4000
+2013,Play Station 3,usada,1036,4000
+2013,Play Station 3,usada,1037,4000
+2013,Play Station 3,usada,1038,4000
+2010,Nintendo DS,usada,2039,2000
+2010,Nintendo DS,usada,2038,2000
+2007,Play Station 2,usada,2040,1500
+2007,Play Station 2,usada,2041,1500
+2007,Play Station 2,usada,2042,1500
+2007,Play Station 2,usada,2043,1500

@@ -1,1 +1,15 @@
-street fighter,2012,xbox One,2,pelea,nuevo,2001,1200
+Assassins creed unity,2014,Play Station 4,1,aventura,nuevo,2001,850
+forza motorsport 7,2017,xbox One,2,carreras,nuevo,2002,1800
+quantium break,2016,xbox One,1,aventura,nuevo,2003,1800
+assassins creed 1,2010,Play Station 2,1,aventura,usado,2005,250
+assassins creed 2,2011,Play Station 2,1,aventura,usado,2004,350
+super mario bros,2008,Nintendo Wii,2,aventura,usado,2006,500
+assassins creed 3,2012,Play Station 3,1,aventura,usado,2007,370
+assassins creed 4,2013,Play Station 3,1,aventura,usado,2008,500
+assassins creed 4,2013,xbox 360,1,aventura,usado,2009,500
+street fighter,2013,Play Station 3,2,pelea,usado,2010,800
+sonic,2010,xbox 360,1,aventura,usado,2011,450
+super mario bros 2,2011,Nintendo Wii,2,aventura,usado,2012,450
+watch dogs 2,2016,Play Station 4,1,accion,nuevo,2013,1550
+assassins creed syndicate,2015,Play Station 4,1,aventura,nuevo,2014,1450
+dragon ball xenoverse,2015,Play Station 4,2,pelea,nuevo,2015,2014
