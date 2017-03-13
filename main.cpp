@@ -232,8 +232,10 @@ int main()
               cin>>opcion_videojuego;
               cout << endl;//salto de linea
               string nombre, consola, genero, estado;
-              int ano, numero_jugadores, serie;
+              int ano, numero_jugadores, serie, cantidad;
               double precio;
+              cout << "Ingrese la cantidad de juegos: ";
+              cin >> cantidad;
               if (opcion_videojuego=="1"){//opcion de videojuego de microsoft
                 cout << "AGREGANDO VIDEOJUEGO DE MICROSOFT" << endl << endl;
                 cin.ignore(256,'\n');
@@ -252,9 +254,11 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
-                cout << "Se ha agregado un juego de microsoft al inventario" << endl;
+                for(int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
+                cout << "Se ha agregado juegos de microsoft al inventario" << endl;
               }//fin de la opcion de microsoft
               else if (opcion_videojuego=="2"){//opcion de videojuego de sony
                 cout << "AGREGANDO VIDEOJUEGOS DE SONY" << endl << endl;
@@ -274,8 +278,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de sony al inventario" << endl;
               }//fin de la opcion de videojuego de sony
               else if (opcion_videojuego=="3"){//opcion de videojuego de nintendo
@@ -296,8 +302,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de nintedo al inventario" << endl;
               }//fin de la opcion de videojuego de nintendo
               else if (opcion_videojuego=="4"){//opcion de videojuego de bandai
@@ -318,8 +326,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de konami al inventario" << endl;
               }//fin de la opcion de videojueg de bandai
               else if (opcion_videojuego=="5"){//opcion de videojuegos de konami
@@ -340,8 +350,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de konami al inventario" << endl;
               }//fin de la opcion de videojuego de konami
               else if (opcion_videojuego=="6"){//opcion de videojuego de square enix
@@ -362,8 +374,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de square enix al inventario" << endl;
               }//fin de la opcion de videojuego de square enix
               else if (opcion_videojuego=="7"){//opcion de videojuego de electronic arts
@@ -384,8 +398,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i < cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de electronic arts al inventario" << endl;
               }//fin de la opcion de videojuego de electronic arts
               else if (opcion_videojuego=="8"){//opcion de videojuego de sega
@@ -406,8 +422,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i = 0; i < cantidad; i++) {
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de sega al inventario" << endl;
               }//fin de la opcion de videojuego de sega
               else if (opcion_videojuego=="9"){//opcion de videojuego de Ubisoft
@@ -428,8 +446,10 @@ int main()
                 cin>>numero_jugadores;
                 cout << "Ingrese el precio del juego: ";
                 cin>>precio;
-                serie = validacionSerie(inventario);
-                inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                for (int i=0; i<cantidad; i++){
+                  serie = validacionSerie(inventario);
+                  inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+                }
                 cout << "Se ha agregado un juego de ubisoft al inventario" << endl;
               }//fin de la opcion de videojuego de ubisoft
               else{
@@ -747,8 +767,10 @@ int main()
             cin >> opcion_videojuego;
             cout << endl; //salto de linea
             string nombre,estado, genero, consola;
-            int ano,numero_jugadores,serie;
+            int ano,numero_jugadores,serie, cantidad;
             double precio;
+            cout << "Ingrese la cantidad de videojuegos: ";
+            cin >> cantidad;
             if (opcion_videojuego=="1") {//Opcion de agregar juego de microsoft
               cout << "AGREGANDO JUEGO DE MICROSOFT" << endl << endl;
               cin.ignore(256,'\n');
@@ -767,8 +789,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i = 0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new JuegoMicrosoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado el juego de microsoft al inventario" << endl;
             }// fin de la opcion de juego microsoft
             else if (opcion_videojuego=="2") {//Opcion de agregar juego de sony
@@ -789,8 +813,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new JuegoSony(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado el juego de sony " << endl;
             }//fin de la opcion de agregar juego de sony
             else if (opcion_videojuego=="3") {//opcion de agregar videojuegos de nintendo
@@ -811,8 +837,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i< cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new JuegoNintendo(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de nintendo" << endl;
             }//fin de la opcion de agregar videojuegos de nintendo
             else if (opcion_videojuego=="4"){//OPcion de agregar videojuego de bandai
@@ -833,8 +861,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new Bandai(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de Bandai" << endl;
             }//fin de la opcion de agregar videojuegos de Bandai
             else if (opcion_videojuego=="5") {//opcion de agregar videojuego de konami
@@ -855,8 +885,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new Konami(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de konami" << endl;
             }//fin de la opcion de agregar juego de konami
             else if (opcion_videojuego=="6") {//opcion de agregar videojuego de square enix
@@ -877,8 +909,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i<cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new SquareEnix(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de square enix" << endl;
             }// fin de la opcion de agregar cideojuego de square enix
             else if (opcion_videojuego=="7") {//Opcion de agregar videojuego de electronic arts
@@ -899,8 +933,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new ElectronicArts(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de electronic arts al inventario" << endl;
             }//fin de la opcion de agregar videojuegos de electronic arts
             else if (opcion_videojuego=="8") {//opcion de agregar videojuego de sega
@@ -921,8 +957,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i < cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new Sega(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado un juego de sega al inventario" << endl;
             }//fin de la opcion de agregar videojuego de sega
             else if (opcion_videojuego=="9") {//Opcion de agregar videojuego de Ubisoft
@@ -943,8 +981,10 @@ int main()
               cin>>numero_jugadores;
               cout << "Ingrese el precio del juego: ";
               cin>>precio;
-              serie = validacionSerie(inventario);
-              inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              for (int i=0; i< cantidad; i++){
+                serie = validacionSerie(inventario);
+                inventario->addVideojuego(new Ubisoft(nombre,ano,consola,numero_jugadores,genero,estado,serie,precio));
+              }
               cout << "Se ha agregado una juego de ubisoft en el inventario" << endl;
             }//fin de la opcion de agregar videjuego de Ubisoft
             else {//opcion de agregar videjuego cancelado
