@@ -1015,9 +1015,8 @@ int main()
             if (opcion_venta=="1") {//opcion de agregar articulo a la venta
               cout << "AGREGANDO ARTICULO" << endl << endl;
               int serie;
-              serie = ingresoSerie();
-              Consola* c;//variable temporal de Consola
-              Videojuegos* v;//variable temporal de Videojuego
+              cout << "Ingrese una serie: ";
+              cin>> serie;
               bool verificar_consola = false;
               bool verificar_juego = false;
               int posiciones_consolas;
@@ -1025,7 +1024,6 @@ int main()
               for (int i=0; i < inventario->sizeConsola(); i++){
                 if (serie==inventario->getConsola(i)->getSerie()){
                   verificar_consola=true;
-                  c = inventario->getConsola(i);
                   posiciones_consolas=i;
                   subtotal += inventario->getConsola(i)->getPrecio();
                   break;
@@ -1039,31 +1037,26 @@ int main()
                 }else if (tipoConsola(inventario->getConsola(posiciones_consolas))=="Nintendo") {
                   contador_nintendo--;
                 }
-                venta->addConsola(c);
+                venta->addConsola(inventario->getConsola(posiciones_consolas));
                 inventario->removeConsola(posiciones_consolas);
                 cout << "Se ha agregado una consola " << tipoConsola(inventario->getConsola(posiciones_consolas)) << endl;
               }//fin de la verificacion de consola
-              else {//verificacion de videojuegos
-                for (int i=0; i < inventario->sizeVideojuego(); i++){
-                  if (serie==inventario->getVideojuego(i)->getSerie()){
-                    verificar_juego==true;
-                    v = inventario->getVideojuego(i);
-                    posiciones_juegos = i;
-                    subtotal += inventario->getVideojuego(i)->getPrecio();
-                    break;
-                  }
+              for (int i=0; i < inventario->sizeVideojuego(); i++){
+                if (serie==inventario->getVideojuego(i)->getSerie()){
+                  verificar_juego=true;
+                  posiciones_juegos = i;
+                  subtotal += inventario->getVideojuego(i)->getPrecio();
+                  break;
                 }
-                if (verificar_juego==true) {//inicio de verificacion de videjuego
-                  venta->addVideojuego(v);
-                  inventario->removeVideojuego(posiciones_juegos);
-                  cout << "Se ha agregado un videojuedo" << endl;
-                }//fin  de la verificacion de videojuego
-                else {
-                  cout << "Error en el numero de serie" << endl;
-                }
-              }//fin de la verificacion de videojuegos
-              delete c;//eliminando la referencia de memoria de variable temporal de consola
-              delete v;//eliminando la referencia de memoria de variable temporal de videojuego
+              }
+              if (verificar_juego==true) {//inicio de verificacion de videjuego
+                venta->addVideojuego(inventario->getVideojuego(posiciones_juegos));
+                inventario->removeVideojuego(posiciones_juegos);
+                cout << "Se ha agregado un videojuedo" << endl;
+              }//fin  de la verificacion de videojuego
+              if (verificar_juego==false && verificar_consola==false){
+                cout << "Error serie no encontrada" << endl;
+              }
             }//fin de la opcion de agregar articulo a la venta
             else if (opcion_venta=="2") {//Listando articulos
               string opcion_listar;
@@ -1104,7 +1097,7 @@ int main()
             }
             cout << endl;//salto de linea
             cout << "Desea continuar en la venta: ";
-            cin>>respuesta_vendedor;
+            cin>>respuesta_venta;
           }//fin respuesta de la venta
           venta->setSubtotal(subtotal);
           venta->setHora_finalizacion();
@@ -1117,14 +1110,15 @@ int main()
         cin>>respuesta_vendedor;
         cout << endl;
       }//fin de respuesta de vendedor
-      if (ventas_vendedor.size()>-1) {
+      vendedor->setHora_final();
+      //if (ventas_vendedor.size()>-1) {
         imprimirVendedor(ventas_vendedor,vendedor);
-      }
+      //}
       //eliminando memoeria del vector de ventas
       for (int i = 0; i < ventas_vendedor.size(); i++){
         delete ventas_vendedor[i];
       }
-      ventas_vendedor.clear();
+      //ventas_vendedor.clear();
       delete vendedor;
     }//fin de de menu principal del usuario vendedor
     cout <<"Desea continuar: ";
